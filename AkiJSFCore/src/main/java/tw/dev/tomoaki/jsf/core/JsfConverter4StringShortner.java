@@ -1,0 +1,69 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package tw.dev.tomoaki.jsf.core;
+
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
+import javax.faces.convert.FacesConverter;
+import tw.dev.tomoaki.util.stringutils.AkiStringUtil;
+//import tw.dev.tomoaki.util.wordanalysis.AkiStringUtil;
+
+/**
+ *
+ * @author tomoaki
+ */
+@FacesConverter("tw.dev.tomoaki.util.jsf.JsfConverter4StringShortner")
+public class JsfConverter4StringShortner implements Converter {
+
+    public static String ATTR_PREFIX_LENGTH = "tw.dev.tomoaki.util.jsf.JsfConverter4StringShortner.PrefixLength";
+    public static String ATTR_SUFFIX_LENGTH = "tw.dev.tomoaki.util.jsf.JsfConverter4StringShortner.SuffixLength";
+    public static String ATTR_OMIT_SYMBOL = "tw.dev.tomoaki.util.jsf.JsfConverter4StringShortner.OmitSymbol";
+    
+    
+    private Integer prefixLength = 14;
+    private Integer suffixLength = 10;
+    private String omitSymbol;
+    
+    @Override
+    public Object getAsObject(FacesContext context, UIComponent component, String value) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getAsString(FacesContext context, UIComponent component, Object value) {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.doLengthSetup(component);
+        this.doOmitSymbolSetup(component);
+        
+        String oriValue = (String)value;
+        if(omitSymbol == null){
+            return AkiStringUtil.shortStr(oriValue, prefixLength, suffixLength);
+        }else{
+            return AkiStringUtil.shortStr(oriValue, prefixLength, suffixLength, this.omitSymbol);        
+        }
+    }
+    
+    public void doLengthSetup(UIComponent component){
+        String tempPrefixLength = (String)component.getAttributes().get(ATTR_PREFIX_LENGTH);
+        if(tempPrefixLength != null && tempPrefixLength.isEmpty() == false){
+            this.prefixLength = Integer.parseInt(tempPrefixLength);
+        }
+    
+        String tempSuffixLength = (String)component.getAttributes().get(ATTR_SUFFIX_LENGTH);
+        if(tempSuffixLength != null && tempSuffixLength.isEmpty() == false){
+            this.suffixLength = Integer.parseInt(tempSuffixLength);
+        }        
+    }
+    
+    public void doOmitSymbolSetup(UIComponent component){
+        Object objOmitSymbol = component.getAttributes().get(ATTR_OMIT_SYMBOL);    
+        if(objOmitSymbol != null){
+            this.omitSymbol = (String)objOmitSymbol;
+        }
+    }
+    
+}
