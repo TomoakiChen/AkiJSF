@@ -5,13 +5,13 @@
 package tw.dev.tomoaki.jsf.pf.bean;
 
 import org.primefaces.PrimeFaces;
-import tw.dev.tomoaki.util.jsf.JsfPageBean;
+import tw.dev.tomoaki.jsf.core.JsfPageBean;
 
 /**
  *
  * @author tomoaki
  */
-public class PFPageBean extends JsfPageBean{
+public class PFPageBean extends JsfPageBean {
 
     public void excuteJs(String js) {
 //        System.out.println("js : " + js);
@@ -20,7 +20,7 @@ public class PFPageBean extends JsfPageBean{
 
     protected void doAlert4WindowUnbind() {
         this.excuteJs(" window.onbeforeunload = function () {\n"
-                + "                    var dialogText = \"½T©wÂ÷¶}·í«e­¶­±¶Ü¡H\";\n"
+                + "                    var dialogText = \"ç¢ºå®šé›¢é–‹ç•¶å‰é é¢å—ï¼Ÿ\";\n"
                 + "                    var e = window.event || e;\n"
                 + "                    e.returnValue = (dialogText);\n"
                 + "                    return dialogText;\n"
@@ -34,7 +34,7 @@ public class PFPageBean extends JsfPageBean{
 
     protected void doLockElement(String desigElementId, String msg) {
         String selector = (desigElementId == null) ? "null" : String.format("[id=\"%s\"]", desigElementId);
-        msg = (msg == null) ? "½Ğµy«á" : msg;
+        msg = (msg == null) ? "è«‹ç¨å¾Œ" : msg;
         String script = String.format("ScreenAnimation.loadingLock(%s, '%s')", selector, msg);
         this.excuteJs(script);
     }

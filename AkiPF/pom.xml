@@ -52,6 +52,7 @@
             <groupId>${project.groupId}</groupId>
             <artifactId>AkiWeb</artifactId>
             <version>${project.version}</version>
+            <scope>provided</scope>
         </dependency>        
         
         <!-- https://mvnrepository.com/artifact/org.primefaces/primefaces -->
@@ -59,6 +60,7 @@
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>
             <version>12.0.0</version>
+            <scope>provided</scope>
         </dependency>        
     </dependencies>
 </project>
