@@ -7,7 +7,7 @@
         <version>github-2023.03.22-1</version>
     </parent> -->
     <groupId>TomoakiChen.tw.dev.tomoaki</groupId>
-    <artifactId>AkiJSFCore</artifactId>
+    <artifactId>aki-jsf-core</artifactId>
     <version>github-2023.03.22-1</version>
     <packaging>jar</packaging>
     <build>
