@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package tw.dev.tomoaki.jsf.pf;
+package tw.dev.tomoaki.main;
 
 /**
  *
  * @author tomoaki
  */
-public class AkiPF {
+public class AkiPFMain {
 
     public static void main(String[] args) {
         System.out.println("Hello World!");

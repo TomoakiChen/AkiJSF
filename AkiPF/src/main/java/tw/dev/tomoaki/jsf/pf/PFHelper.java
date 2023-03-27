@@ -6,7 +6,6 @@ package tw.dev.tomoaki.jsf.pf;
 
 import org.primefaces.component.tabview.Tab;
 import org.primefaces.event.TabChangeEvent;
-import tw.dev.tomoaki.jsf.core.JsfHelper;
 
 /**
  *
