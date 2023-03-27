@@ -5,6 +5,7 @@
  */
 package tw.dev.tomoaki.jsf.core;
 
+import tw.dev.tomoaki.jsf.core.helper.JsfMessageHelper;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
@@ -16,7 +17,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import tw.dev.tomoaki.jsf.core.JsfMessage;
+import tw.dev.tomoaki.jsf.core.helper.JsfHttpHelper;
 //import tw.dev.hcfeng.util.secutiry.AccessKeyUtil;
 //import tw.dev.tomoaki.util.collection.UrlCreator;
 import tw.dev.tomoaki.util.web.PageInfo;
@@ -32,9 +33,13 @@ public class JsfPageBean {
 
     protected final static String SESSION_ATTR_PAGESTACK = "sEssSionKeYPAgeSTaCk";
 
-    protected HttpServletRequest request;
-    protected HttpServletResponse response;
-    protected HttpSession session;
+    /**
+     *  先撇開 session。request、response 存這裡很怪吧，因為每次 request 不是應該都要更新
+     */
+    
+//    protected HttpServletRequest request;
+//    protected HttpServletResponse response;
+//    protected HttpSession session;
 
 //    protected UrlCreator urlCreator;
     protected String message;
@@ -50,13 +55,14 @@ public class JsfPageBean {
     }
 
     protected void doInitJsfPageBean() {
-        request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-        response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
-        session = request.getSession();
+//        request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+//        response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+//        session = request.getSession();
         this.doSetupUrlProvider();
     }
 
     protected void doSetupUrlProvider() {
+        HttpServletRequest request = this.getRequest();
         urlProvider = UrlProvider.Factory.create(request);
     }
 
@@ -85,7 +91,7 @@ public class JsfPageBean {
 
     private void showMessage(String message, FacesMessage.Severity serverity) {
         this.message = message;
-        JsfMessage.addFacesMessage(message, serverity);
+        JsfMessageHelper.addFacesMessage(message, serverity);
     }
 
     public void setNextPage(String nextPage) {
@@ -118,7 +124,16 @@ public class JsfPageBean {
     }
 
     protected HttpServletRequest getRequest() {
-        return (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+//        return (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        return JsfHttpHelper.obtainServletRequest();
+    }
+    
+    protected HttpServletResponse getResponse() {
+        return JsfHttpHelper.obtainServletResponse();
+    }
+    
+    protected HttpSession getSession() {
+        return JsfHttpHelper.obtainSession();
     }
 
     public void doUpdateComponent(String id) {
@@ -126,19 +141,22 @@ public class JsfPageBean {
     }
 
     protected void recordNowPage() {
-        String nowPage = WebHelper.getNowPage(this.request);
-        PageStack pageStack = (PageStack) this.session.getAttribute(JsfPageBean.SESSION_ATTR_PAGESTACK);
+        HttpServletRequest request = this.getRequest();
+        HttpSession session = request.getSession();
+        String nowPage = WebHelper.getNowPage(request);
+        PageStack pageStack = (PageStack)session.getAttribute(JsfPageBean.SESSION_ATTR_PAGESTACK);
         if (pageStack == null) {
             pageStack = new PageStack();
         }
         pageStack.push(nowPage);
-        this.session.setAttribute(JsfPageBean.SESSION_ATTR_PAGESTACK, pageStack);
+        session.setAttribute(JsfPageBean.SESSION_ATTR_PAGESTACK, pageStack);
     }
 
     protected PageInfo popLastPage() {
-        PageStack pageStack = (PageStack) this.session.getAttribute(JsfPageBean.SESSION_ATTR_PAGESTACK);
+        HttpSession session = this.getSession();
+        PageStack pageStack = (PageStack) session.getAttribute(JsfPageBean.SESSION_ATTR_PAGESTACK);
         PageInfo pageInfo = pageStack.pop();
-        this.session.setAttribute(JsfPageBean.SESSION_ATTR_PAGESTACK, pageStack);
+        session.setAttribute(JsfPageBean.SESSION_ATTR_PAGESTACK, pageStack);
         return pageInfo;
     }
 

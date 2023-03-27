@@ -1,4 +1,4 @@
-package tw.dev.tomoaki.jsf.core;
+package tw.dev.tomoaki.jsf.core.helper;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -13,7 +13,7 @@ import javax.faces.context.FacesContext;
  *
  * @author tomoaki
  */
-public class JsfMessage {
+public class JsfMessageHelper {
     public static void addFacesMessage(String message,FacesMessage.Severity serverity)
     {
         //System.out.println("Message = " + message);
