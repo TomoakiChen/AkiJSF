@@ -1,0 +1,65 @@
+<facelet-taglib>
+    <namespace>http://akijsfext.com/facelets</namespace>
+    <composite-library-name>aje</composite-library-name>
+    <tag>
+        <tag-name>tagChip</tag-name>
+        <source>tagimpl/tagchip.xhtml</source>
+    </tag>
+    <tag>
+        <tag-name>tagChipDateTime</tag-name>
+        <source>tagimpl/tagchipDateTime.xhtml</source>
+    </tag>    
+    <tag>
+        <tag-name>dateTimePicker</tag-name>
+        <!--<source>tagimpl/tarruda-datetimepicker.xhtml</source>-->
+        <description>            
+            <![CDATA[
+            更好看的 DateTimePicker / More Elegant DateTimPicker Use FlatPicker
+            ]]>
+        </description>
+        <!--<source>tagimpl/trentrichardson-datetimepicker.xhtml</source>-->
+        <source>tagimpl/flatpicker-datetimepicker.xhtml</source>
+        <attribute>
+            <name>value</name>
+            <description>
+                The Value Of Component
+<!--                <![CDATA[The Value Of Component]]>-->
+            </description>
+            <required>true</required>
+            <type>java.time.LocalDateTime</type>
+        </attribute>
+        <attribute>
+            <name>blockStyle</name>
+            <description>
+                <!--The Style For The Container Of Input-->
+               <![CDATA[The Html "style" Attribute For The Container Element Outside The Input Element]]>
+            </description>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>blockStyleClass</name>
+            <description>
+                輸入欄外面的容器的 class / The Html "class" Attribute For The Container Element Outside The Input Element
+            </description>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>inputTextStyleClass</name>
+            <description>
+                The Html "class" Attribute For The Input Element
+            </description>
+            <type>java.lang.String</type>            
+        </attribute>
+        <attribute>
+            <name>dateTimePattern</name>
+            <description>
+                時間的格式，寫法即Java本身支援的，預設為 'yyyy-MM-dd' / DateTime Part Format, Is Same As With Java, Default Is 'yyyy-MM-dd'            
+            </description>
+        </attribute>
+    </tag>   
+    <tag>
+        <tag-name>abbrevOutputText</tag-name>
+        <source>tagimpl/abbrevOutputText.xhtml</source>
+    </tag>        
+</facelet-taglib>
