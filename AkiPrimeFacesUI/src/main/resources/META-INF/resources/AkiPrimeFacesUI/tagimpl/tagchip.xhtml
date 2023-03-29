@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html">
+    <style>
+        .tag-chip {
+            background:  #F1FFFF;
+            border: 1px solid gray;
+            padding-left: 3px;
+            padding-right: 3px;
+            padding-top:1px;
+            padding-bottom: 1px;
+            border-radius: 4px;
+            margin-right:3px;
+        }
+
+        .tag-chip > .tag-chip-label {
+            font-weight: bold;
+        }
+
+        .tag-chip > .tag-chip-summary {
+
+        }
+        
+        .tag-chip > .tag-chip-detail {
+
+        }        
+    </style>    
+    <ui:remove>
+        <!--
+        f:convertDateTime rendered false 沒有用，但因為他不會影響非Date類的顯示，所以就不固執要付上去了
+        -->
+    </ui:remove>
+    <h:panelGroup styleClass="tag-chip#{empty styleClass ? '': ' ' +styleClass}" rendered="#{!empty summary}" style="#{style}">                           
+        <h:outputText styleClass="tag-chip-label" value="#{label}"/>
+        <h:outputText value="#{ empty splitMark ? ':' : splitMark}"/>
+        <ui:remove>
+        <!--
+        <h:outputText styleClass="tag-chip-summary" value="#{summary}"       
+                      converter="tw.dev.tomoaki.util.jsf.JsfConverter4StringShortner">     
+            <f:attribute name="tw.dev.tomoaki.util.jsf.JsfConverter4StringShortner.PrefixLength" value="#{empty shortnerPre ? '14' : shortnerPre}"/>
+            <f:attribute name="tw.dev.tomoaki.util.jsf.JsfConverter4StringShortner.SuffixLength" value="#{empty shortnerSuf ? '17' : shortnerSuf}"/>            
+            <f:attribute name="tw.dev.tomoaki.util.jsf.JsfConverter4StringShortner.OmitSymbol" value="#{empty shortnerOmit ? '....' : shortnerOmit}"/>         
+        </h:outputText>
+        -->
+        </ui:remove>
+        <h:outputText styleClass="tag-chip-summary" value="#{summary}"/>                              
+        <h:outputText value="#{detail}" rendered="#{false}"/>
+    </h:panelGroup>          
+</ui:composition>

@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html">
+    <style>
+        body .ui-datepicker .ui-timepicker-div dl dd {
+           margin: 0;    
+        }
+    </style>
+    <!-- 目前主要使用這個 -->
+    
+    <h:outputStylesheet name="trentrichardson-datetimepicker/css/jquery-ui-timepicker-addon.css"/>
+    <h:outputScript name="trentrichardson-datetimepicker/js/jquery-ui-timepicker-addon.js"/>
+    <p:outputPanel id="${id}_datetimepicker" style="#{style}" styleClass="#{styleClass}">
+        <p:inputText id="#{id}_datetimepicker_text" value="#{value}" style="#{textStyle}" styleClass="#{textStyleClass}">
+
+            <p:remoteCommand name="#{id}DoneCommand" action="#{doneCommand}" update="#{doneCommandUpdate}"/>
+            
+            <f:convertDateTime pattern="#{empty datePattern ? 'yyyy-MM-dd' : datePattern} #{empty timePattern ?  'HH:mm:ss' : timePattern}" 
+                               timeZone="#{empty timeZone ? 'GMT+8' : timeZone}"/>
+        </p:inputText>
+    </p:outputPanel>
+    <script>
+        $(document).ready(function(){
+                var $dateTimeElement = $('[id$="#{id}_datetimepicker_text"]');
+                $dateTimeElement.datetimepicker({
+                controlType: 'select',
+                        changeYear : true,
+                        changeMonth : true,
+                        oneLine: true,
+                        dateFormat : '#{empty datePattern ? 'yy-mm-dd' : datePattern}',
+                        timeFormat : '#{empty timePattern ?  'HH:mm:ss' : timePattern}',
+                        hour : #{empty hour ? 0 : hour},
+                        minute : #{empty minute ? 0 : minute},
+                        second : #{empty second ? 0 : second},
+                        onClose: function() {
+                            var promise = #{id}DoneCommand();
+                            console.log(promise);
+                        }
+                });
+            });
+    </script>
+</ui:composition>

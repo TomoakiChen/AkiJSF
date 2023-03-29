@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <style>
+        body .ui-datepicker .ui-timepicker-div dl dd {
+            margin: 0;    
+        }
+    </style>
+    <h:outputScript name="flatpicker-datetimepicker/dayjs/dayjs.min.js"/>    
+    
+    <h:outputStylesheet name="flatpicker-datetimepicker/flatpicker.min.css"/>
+    <h:outputStylesheet name="flatpicker-datetimepicker/themes/airbnb.css"/>    
+    <h:outputScript name="flatpicker-datetimepicker/flatpicker.min.js"/>
+    
+    <h:outputScript name="flatpicker-datetimepicker/plugins/confirmDate.js"/>
+    <h:outputStylesheet name="flatpicker-datetimepicker/plugins/confirmDate.css"/>    
+    
+    <p:outputPanel id="#{id}_datetimepicker" style="#{empty blockStyle ? '' : blockStyle}" styleClass="#{empty  blockStyleClass ? '' :  blockStyleClass}">
+        <p:inputText id="#{id}_datetimepicker_text" value="#{value}" widgetVar="#{id}_datetimepicker_text" styleClass="#{inputTextStyleClass}">
+            <f:convertDateTime pattern="#{empty dateTimePattern ? 'yyyy-MM-dd HH:mm:ss' : dateTimePattern}"  
+                               timeZone="#{empty timeZone ? 'GMT+8' : timeZone}" />
+        </p:inputText>
+    </p:outputPanel>
+
+    <script>
+        $(document).ready(function () {
+            let id = '#{id}_datetimepicker_text';
+            let wholeId = PF(id).jq[0].id;
+            let selector = '[id="' + wholeId + '"]';
+            let fp = flatpickr(selector, {
+                enableTime: #{empty enableTime ? true : enableTime},
+//                dateFormat: "Y-m-d H:i", //等於以前的 YYYY/MM/dd HH:mm
+                dateFormat: '#{empty dateTimePattern ? 'yyyy-MM-dd HH:mm:ss'.replace('d', 'D').replace('y', 'Y') : dateTimePattern.replace('d', 'D').replace('y', 'Y')}', 
+                time_24hr: true,
+                minuteIncrement: 1, //預設是5
+                defaultHour: #{empty hour ? 0 : hour},
+                defaultMinute: #{empty minute ? 0 : minute},
+                plugins: [new confirmDatePlugin({})],
+                
+                parseDate: (datestr, format) => {                    
+                    return dayjs(datestr, format, true);
+                },
+                formatDate: (date, format, locale) => {
+                    // locale can also be used
+                    return dayjs(date).format(format);
+                }
+            });
+        });
+    </script>
+</ui:composition>
