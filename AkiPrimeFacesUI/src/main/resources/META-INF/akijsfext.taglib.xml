@@ -23,7 +23,7 @@
             <name>value</name>
             <description>
                 The Value Of Component
-<!--                <![CDATA[The Value Of Component]]>-->
+                <!--                <![CDATA[The Value Of Component]]>-->
             </description>
             <required>true</required>
             <type>java.time.LocalDateTime</type>
@@ -54,9 +54,25 @@
         <attribute>
             <name>dateTimePattern</name>
             <description>
-                時間的格式，寫法即Java本身支援的，預設為 'yyyy-MM-dd' / DateTime Part Format, Is Same As With Java, Default Is 'yyyy-MM-dd'            
+                <![CDATA[
+                日期時間的格式，寫法即Java本身支援的，預設為 'yyyy-MM-dd HH:mm:ss' 
+                DateTime Part Format, Is Same As With Java, Default Is 'yyyy-MM-dd HH:mm:ss'          
+                ]]>  
             </description>
+            <type>java.lang.String</type>
         </attribute>
+        <attribute>
+            <name>timeZone</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>hour</name>
+            <type>java.lang.Integer</type>
+        </attribute>
+        <attribute>
+            <name>minute</name>
+            <type>java.lang.Integer</type>
+        </attribute>                
     </tag>   
     <tag>
         <tag-name>abbrevOutputText</tag-name>
