@@ -22,7 +22,8 @@
     
     <p:outputPanel id="#{id}_datetimepicker" style="#{empty blockStyle ? '' : blockStyle}" styleClass="#{empty  blockStyleClass ? '' :  blockStyleClass}">
         <p:inputText id="#{id}_datetimepicker_text" value="#{value}" widgetVar="#{id}_datetimepicker_text" styleClass="#{inputTextStyleClass}">
-            <f:convertDateTime pattern="#{empty dateTimePattern ? 'yyyy-MM-dd HH:mm:ss' : dateTimePattern}"  
+            <f:convertDateTime type="localDateTime"
+                               pattern="#{empty dateTimePattern ? 'yyyy-MM-dd HH:mm:ss' : dateTimePattern}"  
                                timeZone="#{empty timeZone ? 'GMT+8' : timeZone}" />
         </p:inputText>
     </p:outputPanel>
