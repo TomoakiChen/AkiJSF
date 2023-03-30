@@ -65,6 +65,5 @@
             </plugins>
         </pluginManagement>
     </build>
-     
-    
+    <name>AkiJSF</name>
 </project>
