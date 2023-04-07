@@ -6,12 +6,21 @@ package tw.dev.tomoaki.jsf.pf.bean;
 
 import org.primefaces.PrimeFaces;
 import tw.dev.tomoaki.jsf.core.JsfPageBean;
+import tw.dev.tomoaki.util.entity.DataExistMap;
 
 /**
  *
  * @author tomoaki
  */
 public class PFPageBean extends JsfPageBean {
+
+    protected DataExistMap<String> openingInnerWindowMap;
+
+    @Override
+    protected void doInitJsfPageBean() {
+        super.doInitJsfPageBean(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+        this.openingInnerWindowMap = new DataExistMap();
+    }
 
     public void excuteJs(String js) {
 //        System.out.println("js : " + js);
@@ -72,11 +81,19 @@ public class PFPageBean extends JsfPageBean {
     protected void openInnerWindow(String widgetVar) {
         String jsCode = String.format("PF('%s').show();", widgetVar);
         this.excuteJs(jsCode);
+        this.openingInnerWindowMap.add(widgetVar);
     }
 
     protected void closeInnerWindow(String widgetVar) {//String id) {
         String jsCode = String.format("PF('%s').hide();", widgetVar);
         this.excuteJs(jsCode);
+        this.openingInnerWindowMap.remove(widgetVar);
+    }
+
+    protected void closeOpeningInnerWindow() {
+        for (String widgetVar : this.openingInnerWindowMap.existList()) {
+            this.closeInnerWindow(widgetVar);
+        }
     }
 
     protected void openDialog(String widgetVar) {
@@ -87,11 +104,19 @@ public class PFPageBean extends JsfPageBean {
         this.closeInnerWindow(widgetVar);
     }
 
+    protected void cloaseOpeningDialog() {
+        this.closeOpeningInnerWindow();
+    }
+
     protected void openSiderBar(String widgetVar) {
         this.openInnerWindow(widgetVar);
     }
 
     protected void closeSideBar(String widgetVar) {//String id) {
         this.closeInnerWindow(widgetVar);
+    }
+
+    protected void closeOpeningSideBar() {
+        this.closeOpeningInnerWindow();
     }
 }

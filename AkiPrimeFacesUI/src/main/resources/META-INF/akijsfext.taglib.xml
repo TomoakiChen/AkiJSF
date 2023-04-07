@@ -14,7 +14,8 @@
         <!--<source>tagimpl/tarruda-datetimepicker.xhtml</source>-->
         <description>            
             <![CDATA[
-            更好看的 DateTimePicker / More Elegant DateTimPicker Use FlatPicker
+            更好看的 DateTimePicker &#x13&#x10;
+            More Elegant DateTimPicker Use FlatPicker
             ]]>
         </description>
         <!--<source>tagimpl/trentrichardson-datetimepicker.xhtml</source>-->
@@ -55,7 +56,7 @@
             <name>dateTimePattern</name>
             <description>
                 <![CDATA[
-                日期時間的格式，寫法即Java本身支援的，預設為 'yyyy-MM-dd HH:mm:ss' 
+                日期時間的格式，寫法即Java本身支援的，預設為 'yyyy-MM-dd HH:mm:ss' &#x13&#x10;
                 DateTime Part Format, Is Same As With Java, Default Is 'yyyy-MM-dd HH:mm:ss'          
                 ]]>  
             </description>
@@ -72,7 +73,16 @@
         <attribute>
             <name>minute</name>
             <type>java.lang.Integer</type>
-        </attribute>                
+        </attribute>        
+        <attribute>
+            <name>dataType</name>
+            <description>Date、localDateTime or Something Else, Is Same As 'type' Attribute For f:convertDateTime</description>
+        </attribute>        
+        <attribute>
+            <name>disableValidate</name>
+            <description>是否關閉JPA驗證，預設為否 / Close JPA Validation, Default Is false</description>
+            <type>java.lang.Boolean</type>
+        </attribute>
     </tag>   
     <tag>
         <tag-name>abbrevOutputText</tag-name>

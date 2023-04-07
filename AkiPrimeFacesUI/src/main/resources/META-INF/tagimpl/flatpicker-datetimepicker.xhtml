@@ -22,9 +22,10 @@
     
     <p:outputPanel id="#{id}_datetimepicker" style="#{empty blockStyle ? '' : blockStyle}" styleClass="#{empty  blockStyleClass ? '' :  blockStyleClass}">
         <p:inputText id="#{id}_datetimepicker_text" value="#{value}" widgetVar="#{id}_datetimepicker_text" styleClass="#{inputTextStyleClass}">
-            <f:convertDateTime type="localDateTime"
+            <f:convertDateTime type="#{empty dataType ? 'localDateTime' : dataType}"
                                pattern="#{empty dateTimePattern ? 'yyyy-MM-dd HH:mm:ss' : dateTimePattern}"  
                                timeZone="#{empty timeZone ? 'GMT+8' : timeZone}" />
+             <f:validateBean disabled="#{empty disableValidate ? false : disableValidate}"/>
         </p:inputText>
     </p:outputPanel>
 
