@@ -23,6 +23,13 @@
                     <encoding>${project.build.sourceEncoding}</encoding>
                 </configuration>
             </plugin>
+            
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <version>2.3</version>            
+               
+            </plugin>
         </plugins>
     </build>
     
@@ -77,13 +84,18 @@
             <scope>provided</scope>
         </dependency>             
         
-        <!-- https://mvnrepository.com/artifact/org.primefaces/primefaces -->
+        <!-- https://mvnrepository.com/artifact/org.primefaces/primefaces -->      
         <dependency>
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>
-            <!--<version>12.0.0</version>-->
+            <!-- https://blog.csdn.net/wp500/article/details/14121345 -->
+            <version>12.0.0</version>
             <!--<version>[8.0.0, )</version>-->
-            <version>[8.0.0, 12.0.0]</version>
+            <!--<version>[8.0.0, 12.0.0]</version>-->
+            <!--<version>[8.0.0, 12.0.0)</version>-->
+            <!--<version>[8.0.0,), (, 12.0.0)</version> 會跑取載小於8.0.0-->
+            <!--<version>[8.0.0, 11.0.0], [12.0.0]</version>       這樣是可以，但    -->
+            <!--<version>[8.0.0, )</version>-->
             <scope>provided</scope>
         </dependency>        
     </dependencies>
