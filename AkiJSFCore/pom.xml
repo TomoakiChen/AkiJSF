@@ -28,7 +28,7 @@
     
     <properties>
         <exec.mainClass>tw.dev.tomoaki.jsf.core.AkiJSFCore</exec.mainClass>
-        <akijavautil.version>jitpack-2023.03.16-1</akijavautil.version>
+        <akijavautil.version>jitpack-2023.04.11-5</akijavautil.version>
         <jakartaee>8.0.0</jakartaee>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>11</maven.compiler.source>
