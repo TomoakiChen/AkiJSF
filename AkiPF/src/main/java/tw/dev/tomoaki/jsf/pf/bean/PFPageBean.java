@@ -119,4 +119,10 @@ public class PFPageBean extends JsfPageBean {
     protected void closeOpeningSideBar() {
         this.closeOpeningInnerWindow();
     }
+    
+    public Boolean isInnerWindowOpening(String widgetVar) {
+        String msgFmt = "[%s] isInnerWindowOpening(): widgetVar= %s";
+        System.out.println(String.format(msgFmt, this.getClass().getSimpleName() , widgetVar) );
+        return this.openingInnerWindowMap.contains(widgetVar);
+    }
 }
