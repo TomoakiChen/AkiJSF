@@ -27,3 +27,7 @@ hs_err_pid*
 nb-configuration.xml
 /AkiPFWidget/target/
 /AkiPrimeFacesUI/target/
+
+
+
+.svn
