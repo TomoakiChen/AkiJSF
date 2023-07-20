@@ -4,6 +4,8 @@
  */
 package tw.dev.tomoaki.jsf.pf.bean;
 
+import java.util.LinkedList;
+import java.util.Queue;
 import org.primefaces.PrimeFaces;
 import tw.dev.tomoaki.jsf.core.JsfPageBean;
 import tw.dev.tomoaki.util.entity.DataExistMap;
@@ -16,10 +18,13 @@ public class PFPageBean extends JsfPageBean {
 
     protected DataExistMap<String> openingInnerWindowMap;
 
+    protected Queue<String> restingInnerWindow;
+
     @Override
     protected void doInitJsfPageBean() {
         super.doInitJsfPageBean(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
         this.openingInnerWindowMap = new DataExistMap();
+        this.restingInnerWindow = new LinkedList();
     }
 
     public void excuteJs(String js) {
@@ -28,17 +33,19 @@ public class PFPageBean extends JsfPageBean {
     }
 
     protected void doAlert4WindowUnbind() {
-        this.excuteJs(" window.onbeforeunload = function () {\n"
-                + "                    var dialogText = \"確定離開當前頁面嗎？\";\n"
-                + "                    var e = window.event || e;\n"
-                + "                    e.returnValue = (dialogText);\n"
-                + "                    return dialogText;\n"
-                + "                };        ");
+        this.excuteJs(" "
+                + "window.onbeforeunload = function () {\n"
+                + "    var dialogText = \"確定離開當前頁面嗎？\";\n"
+                + "    var e = window.event || e;\n"
+                + "    e.returnValue = (dialogText);\n"
+                + "    return dialogText;\n"
+                + "};");
     }
 
     protected void doCancelAlert4WindowUnbind() {
-        this.excuteJs(" window.onbeforeunload = function () {\n"
-                + "                };        ");
+        this.excuteJs(""
+                + "window.onbeforeunload = function () {\n"
+                + "};");
     }
 
     protected void doLockElement(String desigElementId, String msg) {
@@ -78,51 +85,118 @@ public class PFPageBean extends JsfPageBean {
         this.doLockElement(desigElementId, null);
     }
 
-    protected void openInnerWindow(String widgetVar) {
+    private void doOpenInnerWindow(String widgetVar, Boolean letOtherOpeningWindowsRest) {
         String jsCode = String.format("PF('%s').show();", widgetVar);
         this.excuteJs(jsCode);
+        tryPrintLog("doOpenInnerWindow(String, Boolean): jsCode= %s", jsCode);
+        
+        if (letOtherOpeningWindowsRest && !openingInnerWindowMap.isEmpty()) {
+//            restingInnerWindow.addAll(openingInnerWindowMap.existList()); //可能會有順序問題，DataExistMap Default 是 Hash(Map) 的
+            openingInnerWindowMap.existList().forEach(innerWindowWidgetVar -> doLetInnerWindowRest(innerWindowWidgetVar));
+        }
         this.openingInnerWindowMap.add(widgetVar);
     }
 
-    protected void closeInnerWindow(String widgetVar) {//String id) {
+    private void doCloseInnerWindow(String widgetVar, Boolean awakeRestingWindows) {
         String jsCode = String.format("PF('%s').hide();", widgetVar);
         this.excuteJs(jsCode);
+        tryPrintLog("doCloseInnerWindow(String, Boolean): jsCode= %s", jsCode);
+        
+        
         this.openingInnerWindowMap.remove(widgetVar);
-    }
-
-    protected void closeOpeningInnerWindow() {
-        for (String widgetVar : this.openingInnerWindowMap.existList()) {
-            this.closeInnerWindow(widgetVar);
+        if (awakeRestingWindows && !restingInnerWindow.isEmpty()) {
+            restingInnerWindow.forEach(windwowWidgetVar -> this.doAwakeInnerWindow(windwowWidgetVar));
         }
     }
 
-    protected void openDialog(String widgetVar) {
-        this.openInnerWindow(widgetVar);
+    protected void doOpenInnerWindow(String widgetVar) {
+        this.doOpenInnerWindow(widgetVar, isLetOtherWindowsRest());
     }
 
-    protected void closeDialog(String widgetVar) {//String id) {
-        this.closeInnerWindow(widgetVar);
+    protected void doCloseInnerWindow(String widgetVar) {
+        this.doCloseInnerWindow(widgetVar, isLetOtherWindowsRest());
     }
 
-    protected void cloaseOpeningDialog() {
-        this.closeOpeningInnerWindow();
+    protected void doCloseOpeningInnerWindow() {
+        for (String widgetVar : this.openingInnerWindowMap.existList()) {
+            this.doCloseInnerWindow(widgetVar);
+        }
     }
 
-    protected void openSiderBar(String widgetVar) {
-        this.openInnerWindow(widgetVar);
+    protected void doLetInnerWindowRest(String widgetVar) {
+        if (!openingInnerWindowMap.contains(widgetVar)) {
+            String msgFmt = "[%s] doLetInnerWindowRest(String): InnerWindow[widgetVar= %s] Is Not Opening";
+            System.out.println(String.format(msgFmt, this.getClass().getSimpleName(), widgetVar));
+            return;
+        }
+        this.doCloseInnerWindow(widgetVar/*, Boolean.FALSE*/);
+//        openingInnerWindowMap.remove(widgetVar);        
+        restingInnerWindow.add(widgetVar);
     }
 
-    protected void closeSideBar(String widgetVar) {//String id) {
-        this.closeInnerWindow(widgetVar);
+    protected void doAwakeInnerWindow(String widgetVar) {
+        if (!restingInnerWindow.contains(widgetVar)) {
+            String msgFmt = "[%s] doAwakeInnerWindow(String): InnerWindow[widgetVar %s] Is Not Resting";
+            System.out.println(String.format(msgFmt, this.getClass().getSimpleName(), widgetVar));
+            return;
+        }
+        this.doOpenInnerWindow(widgetVar/*, Boolean.FALSE*/);
+        restingInnerWindow.remove(widgetVar);
+//        openingInnerWindowMap.add(widgetVar);        
     }
 
-    protected void closeOpeningSideBar() {
-        this.closeOpeningInnerWindow();
+    protected void doAwakeRestingWindow() {
+//        restingInnerWindow.forEach(windwowWidgetVar -> this.doOpenInnerWindow(windwowWidgetVar));                
+        do {
+            String windowWidgetVar = restingInnerWindow.poll();
+            this.doAwakeInnerWindow(windowWidgetVar);
+        } while (!restingInnerWindow.isEmpty());
+    }
+
+    protected void doOpenDialog(String widgetVar) {
+        this.doOpenInnerWindow(widgetVar);
+    }
+
+    protected void doCloseDialog(String widgetVar) {
+        this.doCloseInnerWindow(widgetVar);
+    }
+
+    protected void doCloaseOpeningDialog() {
+        this.doCloseOpeningInnerWindow();
+    }
+
+    protected void doOpenSiderBar(String widgetVar) {
+        this.doOpenInnerWindow(widgetVar);
+    }
+
+    protected void doCloseSideBar(String widgetVar) {
+        this.doCloseInnerWindow(widgetVar);
+    }
+
+    protected void doCloseOpeningSideBar() {
+        this.doCloseOpeningInnerWindow();
+    }
+
+    public Boolean isInnerWindowOpening(String widgetVar) {
+//        String msgFmt = "[%s] isInnerWindowOpening(): widgetVar= %s";
+//        System.out.println(String.format(msgFmt, this.getClass().getSimpleName(), widgetVar));
+        return this.openingInnerWindowMap.contains(widgetVar);
+    }
+
+    protected Boolean isLetOtherWindowsRest() {
+        return Boolean.FALSE;
     }
     
-    public Boolean isInnerWindowOpening(String widgetVar) {
-        String msgFmt = "[%s] isInnerWindowOpening(): widgetVar= %s";
-        System.out.println(String.format(msgFmt, this.getClass().getSimpleName() , widgetVar) );
-        return this.openingInnerWindowMap.contains(widgetVar);
+    protected Boolean isPrintLog() {
+        return Boolean.FALSE;
+    }
+
+    
+    protected void tryPrintLog(String appendMsgFmt, Object... args) {
+        if(isPrintLog()) {
+            String appendMsg = String.format(appendMsgFmt, args);
+            String msgFmt = "[%s] %s";            
+            System.out.println(String.format(msgFmt, this.getClass().getSimpleName(), appendMsg));
+        }
     }
 }

@@ -9,7 +9,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import tw.dev.tomoaki.util.stringutils.AkiStringUtil;
+import tw.dev.tomoaki.util.string.AkiStringUtil;
 //import tw.dev.tomoaki.util.wordanalysis.AkiStringUtil;
 
 /**
@@ -38,7 +38,7 @@ public class JsfConverter4StringShortner implements Converter {
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         this.doLengthSetup(component);
         this.doOmitSymbolSetup(component);
-        
+         
         String oriValue = (String)value;
         if(omitSymbol == null){
             return AkiStringUtil.shortStr(oriValue, prefixLength, suffixLength);
