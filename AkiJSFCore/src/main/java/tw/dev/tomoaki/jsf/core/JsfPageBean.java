@@ -91,7 +91,7 @@ public class JsfPageBean {
 
     private void showMessage(String message, FacesMessage.Severity serverity) {
         this.message = message;
-        JsfMessageHelper.addFacesMessage(message, serverity);
+        JsfMessageHelper.addFacesMessage(serverity, message);
     }
 
     public void setNextPage(String nextPage) {
