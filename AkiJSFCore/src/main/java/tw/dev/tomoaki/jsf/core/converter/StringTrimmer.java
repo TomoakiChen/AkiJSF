@@ -24,7 +24,7 @@ import javax.faces.convert.FacesConverter;
  *
  * @author tomoaki
  */
-@FacesConverter(value = "tw.dev.tomoaki.jsf.core.converter.StringTrimmer", forClass = String.class)
+@FacesConverter(value = "tw.dev.tomoaki.jsf.core.converter.StringTrimmer"/*, forClass = String.class*/)
 public class StringTrimmer implements Converter {
 
     @Override
