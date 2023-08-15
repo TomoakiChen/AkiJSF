@@ -8,6 +8,7 @@ package tw.dev.tomoaki.jsf.core.ui;
 /**
  *
  * @author Tomoaki Chen
+ * @deprecated 
  */
 public class JsfPaginaDataTableConfig {
     

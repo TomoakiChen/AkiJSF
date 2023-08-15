@@ -4,8 +4,8 @@
  */
 package tw.dev.tomoaki.jsf.pf.bean;
 
-import java.util.LinkedList;
 import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import org.primefaces.PrimeFaces;
 import tw.dev.tomoaki.jsf.core.JsfPageBean;
 import tw.dev.tomoaki.util.entity.DataExistMap;
@@ -16,15 +16,16 @@ import tw.dev.tomoaki.util.entity.DataExistMap;
  */
 public class PFPageBean extends JsfPageBean {
 
+    private static final String DEFAULT_NEW_WINDOW_OR_TAB_NAME = "_target";
+    
     protected DataExistMap<String> openingInnerWindowMap;
-
     protected Queue<String> restingInnerWindow;
 
     @Override
     protected void doInitJsfPageBean() {
         super.doInitJsfPageBean(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
-        this.openingInnerWindowMap = new DataExistMap();
-        this.restingInnerWindow = new LinkedList();
+        this.openingInnerWindowMap = DataExistMap.Factory.createOrdered();
+        this.restingInnerWindow = new ConcurrentLinkedQueue();//LinkedList();
     }
 
     public void excuteJs(String js) {
@@ -48,30 +49,7 @@ public class PFPageBean extends JsfPageBean {
                 + "};");
     }
 
-    protected void doLockElement(String desigElementId, String msg) {
-        String selector = (desigElementId == null) ? "null" : String.format("[id=\"%s\"]", desigElementId);
-        msg = (msg == null) ? "請稍後" : msg;
-        String script = String.format("ScreenAnimation.loadingLock(%s, '%s')", selector, msg);
-        this.excuteJs(script);
-    }
 
-    protected void doUnlockPage() {
-        this.doUnlockElement(null);
-    }
-
-    protected void doUnlockElement(String desigElementId) {
-        String selector = (desigElementId == null) ? "null" : String.format("[id=\"%s\"]", desigElementId);
-        String script = String.format("ScreenAnimation.loadingUnlock(%s)", selector);
-        this.excuteJs(script);
-    }
-
-    protected void openNewTab(String url) {
-        this.excuteJs("window.open('" + url + "', '_target');");
-    }
-
-    protected void openNewWindow(String url, Integer width, Integer height) {
-        this.excuteJs("window.open('" + url + "', '_target', config='width=" + width + ",height=" + height + "');");
-    }
 
     protected void doLockPage() {
         this.doLockElement(null, null);
@@ -84,29 +62,91 @@ public class PFPageBean extends JsfPageBean {
     protected void doLockElement(String desigElementId) {
         this.doLockElement(desigElementId, null);
     }
+    
+    protected void doLockElement(String desigElementId, String msg) {
+        String selector = (desigElementId == null) ? "null" : String.format("[id=\"%s\"]", desigElementId);
+        msg = (msg == null) ? "請稍後" : msg;
+        String script = String.format("ScreenAnimation.loadingLock(%s, '%s')", selector, msg);
+        this.excuteJs(script);
+    }    
+    
+    protected void doUnlockPage() {
+        this.doUnlockElement(null);
+    }
 
+    protected void doUnlockElement(String desigElementId) {
+        String selector = (desigElementId == null) ? "null" : String.format("[id=\"%s\"]", desigElementId);
+        String script = String.format("ScreenAnimation.loadingUnlock(%s)", selector);
+        this.excuteJs(script);
+    }    
+    
+//<editor-fold defaultstate="collapsed" desc="以下是開啟新分頁(Tab)或新視窗(Window)相關">
+    /**
+     *
+     * @param url 要打開的頁面網址
+     * @Deprecated 之後都使用有 do 開頭的 ，比如 doOpenNewTab doXxxxx
+     */
+    protected void openNewTab(String url) {
+//        this.excuteJs("window.open('" + url + "', '_target');");
+        this.doOpenNewTab(url, null);
+    }
+
+    protected void doOpenNewTab(String url) {
+        doOpenNewTab(url, null);
+    }
+    
+    protected void doOpenNewTab(String url, String tabName) {
+        String targetName = (tabName == null) ? DEFAULT_NEW_WINDOW_OR_TAB_NAME : tabName;
+        this.excuteJs("window.open('" + url + "', '" + targetName + "');");    
+    }
+
+    protected void openNewWindow(String url, Integer width, Integer height) {
+        this.excuteJs("window.open('" + url + "', '_target', config='width=" + width + ",height=" + height + "');");
+    }
+    
+    protected void doOpenNewWindow(String url, Integer width, Integer height) {
+//        this.excuteJs("window.open('" + url + "', '_target', config='width=" + width + ",height=" + height + "');");    
+        this.doOpenNewWindow(url, null, width, height);
+    }
+    
+    protected void doOpenNewWindow(String url, String windowName, Integer width, Integer height) {
+        String targetName = (windowName == null) ? DEFAULT_NEW_WINDOW_OR_TAB_NAME : windowName;
+        String js = "window.open('" + url + "', '" + targetName + "', config='width=" + width + ",height=" + height + "');";
+        this.excuteJs(js);    
+    }        
+//</editor-fold>
+
+    
+    
+    
     private void doOpenInnerWindow(String widgetVar, Boolean letOtherOpeningWindowsRest) {
+        //把打開中的都存到 restingInnerWinwdow 中記錄
+        if (letOtherOpeningWindowsRest && !openingInnerWindowMap.isEmpty()) {
+//            restingInnerWindow.addAll(openingInnerWindowMap.existList());
+//            openingInnerWindowMap.existList().forEach(innerWindowWidgetVar -> doLetInnerWindowRest(innerWindowWidgetVar));
+            openingInnerWindowMap.existList().forEach(openingWindowWidgetVar -> {
+                this.restingInnerWindow.add(widgetVar);
+                this.openingInnerWindowMap.remove(widgetVar);
+            });
+        }
+        this.openingInnerWindowMap.add(widgetVar);
         String jsCode = String.format("PF('%s').show();", widgetVar);
         this.excuteJs(jsCode);
         tryPrintLog("doOpenInnerWindow(String, Boolean): jsCode= %s", jsCode);
         
-        if (letOtherOpeningWindowsRest && !openingInnerWindowMap.isEmpty()) {
-//            restingInnerWindow.addAll(openingInnerWindowMap.existList()); //可能會有順序問題，DataExistMap Default 是 Hash(Map) 的
-            openingInnerWindowMap.existList().forEach(innerWindowWidgetVar -> doLetInnerWindowRest(innerWindowWidgetVar));
-        }
-        this.openingInnerWindowMap.add(widgetVar);
+        
     }
 
-    private void doCloseInnerWindow(String widgetVar, Boolean awakeRestingWindows) {
-        String jsCode = String.format("PF('%s').hide();", widgetVar);
-        this.excuteJs(jsCode);
-        tryPrintLog("doCloseInnerWindow(String, Boolean): jsCode= %s", jsCode);
-        
-        
+    private void doCloseInnerWindow(String widgetVar, Boolean awakeRestingWindows) {        
         this.openingInnerWindowMap.remove(widgetVar);
         if (awakeRestingWindows && !restingInnerWindow.isEmpty()) {
             restingInnerWindow.forEach(windwowWidgetVar -> this.doAwakeInnerWindow(windwowWidgetVar));
         }
+        
+        String jsCode = String.format("PF('%s').hide();", widgetVar);
+        this.excuteJs(jsCode);
+        tryPrintLog("doCloseInnerWindow(String, Boolean): jsCode= %s", jsCode);
+                
     }
 
     protected void doOpenInnerWindow(String widgetVar) {
@@ -136,11 +176,12 @@ public class PFPageBean extends JsfPageBean {
 
     protected void doAwakeInnerWindow(String widgetVar) {
         if (!restingInnerWindow.contains(widgetVar)) {
-            String msgFmt = "[%s] doAwakeInnerWindow(String): InnerWindow[widgetVar %s] Is Not Resting";
-            System.out.println(String.format(msgFmt, this.getClass().getSimpleName(), widgetVar));
+//            String msgFmt = "[%s] doAwakeInnerWindow(String): InnerWindow[widgetVar %s] Is Not Resting";
+//            System.out.println(String.format(msgFmt, this.getClass().getSimpleName(), widgetVar));
+            this.tryPrintLog("doAwakeInnerWindow(String): InnerWindow[widgetVar %s] Is Not Resting", widgetVar);
             return;
         }
-        this.doOpenInnerWindow(widgetVar/*, Boolean.FALSE*/);
+        this.doOpenInnerWindow(widgetVar, Boolean.FALSE);
         restingInnerWindow.remove(widgetVar);
 //        openingInnerWindowMap.add(widgetVar);        
     }

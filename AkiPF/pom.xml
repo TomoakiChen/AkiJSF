@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>   
     <groupId>tw.dev.tomoaki</groupId>   
     <artifactId>AkiPF</artifactId>
-    <version>1.1.2</version>
+    <version>1.2.1</version>
     <packaging>jar</packaging>
     <build>
         <plugins>
@@ -86,12 +86,20 @@
             <scope>provided</scope>
         </dependency>        
         
+        <!--
         <dependency>
             <groupId>com.github.TomoakiChenSinica.AkiJavaUtils</groupId>
             <artifactId>AkiEntity</artifactId>
             <version>${akijavautil.version}</version>
             <scope>provided</scope>
         </dependency>             
+        -->
+        <dependency>
+            <groupId>tw.dev.tomoaki</groupId>
+            <artifactId>AkiEntity</artifactId>
+            <version>[1.1-SNAPSHOT,]</version>
+            <scope>provided</scope>
+        </dependency>          
         
         <!-- https://mvnrepository.com/artifact/org.primefaces/primefaces -->      
         <dependency>

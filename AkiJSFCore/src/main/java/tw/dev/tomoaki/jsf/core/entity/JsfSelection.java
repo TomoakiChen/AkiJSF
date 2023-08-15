@@ -10,6 +10,7 @@ package tw.dev.tomoaki.jsf.core.entity;
  * @author Tomoaki Chen
  */
 public class JsfSelection<V> {
+
     private String label;
     private V value;
 
@@ -29,5 +30,6 @@ public class JsfSelection<V> {
         this.value = value;
     }
     
-    
+
+
 }
