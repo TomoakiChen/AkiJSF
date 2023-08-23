@@ -83,6 +83,11 @@
             <description>是否關閉JPA驗證，預設為否 / Close JPA Validation, Default Is false</description>
             <type>java.lang.Boolean</type>
         </attribute>
+        <attribute>
+            <name>allowInput</name>
+            <description>是否允許手動輸入，預設為false / Allow Key In, Default Is false</description>
+            <type>java.lang.Boolean</type>
+        </attribute>
     </tag>   
     <tag>
         <tag-name>abbrevOutputText</tag-name>

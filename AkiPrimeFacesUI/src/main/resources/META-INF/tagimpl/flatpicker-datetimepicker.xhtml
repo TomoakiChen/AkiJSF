@@ -26,32 +26,36 @@
                                pattern="#{empty dateTimePattern ? 'yyyy-MM-dd HH:mm:ss' : dateTimePattern}"  
                                timeZone="#{empty timeZone ? 'GMT+8' : timeZone}" />
              <f:validateBean disabled="#{empty disableValidate ? false : disableValidate}"/>
+             
+             <script>
+                 $(document).ready(function () {
+//                     let test = '#{component.id}';
+//                     let id = '#{id}_datetimepicker_text';
+//                     let wholeId = PF(id).jq[0].id;
+//                     let id = '#{component.id}';                                     
+                     let wholeId = `#{component.clientId}`;
+                     let selector = '[id="' + wholeId + '"]';
+                     let fp = flatpickr(selector, {
+                         enableTime: #{empty enableTime ? true : enableTime},
+         //                dateFormat: "Y-m-d H:i", //等於以前的 YYYY/MM/dd HH:mm
+                         dateFormat: '#{empty dateTimePattern ? 'yyyy-MM-dd HH:mm:ss'.replace('d', 'D').replace('y', 'Y') : dateTimePattern.replace('d', 'D').replace('y', 'Y')}', 
+                         time_24hr: true,
+                         minuteIncrement: 1, //預設是5
+                         defaultHour: #{empty hour ? 0 : hour},
+                         defaultMinute: #{empty minute ? 0 : minute},
+                         plugins: [new confirmDatePlugin({})],
+                
+                         parseDate: (datestr, format) => {                    
+                             return dayjs(datestr, format, true);
+                         },
+                         formatDate: (date, format, locale) => {
+                             // locale can also be used
+                             return dayjs(date).format(format);
+                         },
+                         allowInput: #{empty allowInput ? false : allowInput}
+                     });
+                 });
+             </script>             
         </p:inputText>
     </p:outputPanel>
-
-    <script>
-        $(document).ready(function () {
-            let id = '#{id}_datetimepicker_text';
-            let wholeId = PF(id).jq[0].id;
-            let selector = '[id="' + wholeId + '"]';
-            let fp = flatpickr(selector, {
-                enableTime: #{empty enableTime ? true : enableTime},
-//                dateFormat: "Y-m-d H:i", //等於以前的 YYYY/MM/dd HH:mm
-                dateFormat: '#{empty dateTimePattern ? 'yyyy-MM-dd HH:mm:ss'.replace('d', 'D').replace('y', 'Y') : dateTimePattern.replace('d', 'D').replace('y', 'Y')}', 
-                time_24hr: true,
-                minuteIncrement: 1, //預設是5
-                defaultHour: #{empty hour ? 0 : hour},
-                defaultMinute: #{empty minute ? 0 : minute},
-                plugins: [new confirmDatePlugin({})],
-                
-                parseDate: (datestr, format) => {                    
-                    return dayjs(datestr, format, true);
-                },
-                formatDate: (date, format, locale) => {
-                    // locale can also be used
-                    return dayjs(date).format(format);
-                }
-            });
-        });
-    </script>
 </ui:composition>
