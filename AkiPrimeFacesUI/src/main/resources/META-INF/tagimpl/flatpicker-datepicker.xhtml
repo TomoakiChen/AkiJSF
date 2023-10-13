@@ -20,42 +20,23 @@
     <h:outputScript name="flatpicker-datetimepicker/plugins/confirmDate.js"/>
     <h:outputStylesheet name="flatpicker-datetimepicker/plugins/confirmDate.css"/>    
     
-    <p:outputPanel id="#{id}_datetimepicker" style="#{empty blockStyle ? '' : blockStyle}" styleClass="#{empty  blockStyleClass ? '' :  blockStyleClass}">
-        <p:inputText id="#{id}_datetimepicker_text" value="#{value}" widgetVar="#{id}_datetimepicker_text" styleClass="#{inputTextStyleClass}">
-            <f:convertDateTime type="#{empty dataType ? 'localDateTime' : dataType}"
-                               pattern="#{empty dateTimePattern ? 'yyyy-MM-dd HH:mm:ss' : dateTimePattern}"  
+    <p:outputPanel id="#{id}_datepicker" style="#{empty blockStyle ? '' : blockStyle}" styleClass="#{empty  blockStyleClass ? '' :  blockStyleClass}">
+        <p:inputText id="#{id}_datepicker_text" value="#{value}" widgetVar="#{id}_datepicker_text" styleClass="#{inputTextStyleClass}">
+            <f:convertDateTime type="#{empty dataType ? 'localDate' : dataType}"
+                               pattern="#{empty datePattern ? 'yyyy-MM-dd' : datePattern}"  
                                timeZone="#{empty timeZone ? 'GMT+8' : timeZone}" />
              <f:validateBean disabled="#{empty disableValidate ? false : disableValidate}"/>
              
              <script>
                  $(document).ready(function () {
-                     /*
-                     https://stackoverflow.com/questions/18988331/how-to-get-id-of-current-component-in-el
-                     https://www.baeldung.com/intro-to-jsf-expression-language
-                     https://incepttechnologies.blogspot.com/p/jsf-implicit-objects.html
-                     https://stackoverflow.com/questions/29035760/what-exactly-is-component-in-el
-                     https://docs.oracle.com/javaee/7/api/javax/faces/component/UIComponent.html#getCurrentComponent(javax.faces.context.FacesContext)
-                     */
-                    /*
-                     let wholeId = "#{component.clientId}"; 
-                     let id = "theForm:groupMemberListBlock:0:startDateTime_datetimepicker_text";
-                     let selector = `[id='${id}']`;
-                     */
                      let selector = `[id='#{component.clientId}']`;
                      let fp = flatpickr(selector, {
-                         enableTime: #{empty enableTime ? true : enableTime},         
-                         dateFormat: '#{empty dateTimePattern ? 'yyyy-MM-dd HH:mm:ss'.replace('d', 'D').replace('y', 'Y') : dateTimePattern.replace('d', 'D').replace('y', 'Y')}', 
-                         time_24hr: true,
-                         minuteIncrement: 1, //預設是5
-//                         defaultDate: '2023-01-01 23:59:59',
-                         defaultHour: #{empty hour ? 0 : hour},
-                         defaultMinute: #{empty minute ? 0 : minute},
+                         dateFormat: '#{empty datePattern ? 'yyyy-MM-dd'.replace('d', 'D').replace('y', 'Y') : datePattern.replace('d', 'D').replace('y', 'Y')}', 
                          plugins: [new confirmDatePlugin({})],                
                          parseDate: (datestr, format) => {                    
                              return dayjs(datestr, format, true);
                          },
                          formatDate: (date, format, locale) => {
-                             // locale can also be used
                              return dayjs(date).format(format);
                          },
                          allowInput: #{empty allowInput ? false : allowInput} //https://github.com/flatpickr/flatpickr/issues/355

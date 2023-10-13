@@ -88,7 +88,85 @@
             <description>是否允許手動輸入，預設為false / Allow Key In, Default Is false</description>
             <type>java.lang.Boolean</type>
         </attribute>
-    </tag>   
+        <attribute>
+            <name>enableTime</name>
+            <description>是否顯示時間，預設為true，如為false則dateTimePattern中的 time pattern 無效(?)</description>
+            <type>java.lang.Boolean</type>
+        </attribute>
+    </tag>
+
+    <tag>
+        <tag-name>datePicker</tag-name>
+        <!--<source>tagimpl/tarruda-datetimepicker.xhtml</source>-->
+        <description>            
+            <![CDATA[
+            更好看的 DateTimePicker &#x13&#x10;
+            More Elegant DateTimPicker Use FlatPicker
+            ]]>
+        </description>
+        <!--<source>tagimpl/trentrichardson-datetimepicker.xhtml</source>-->
+        <source>tagimpl/flatpicker-datepicker.xhtml</source>
+        <attribute>
+            <name>value</name>
+            <description>
+                The Value Of Component
+            </description>
+            <required>true</required>
+            <type>java.time.LocalDateTime</type>
+        </attribute>
+        <attribute>
+            <name>blockStyle</name>
+            <description>
+                <!--The Style For The Container Of Input-->
+               <![CDATA[The Html "style" Attribute For The Container Element Outside The Input Element]]>
+            </description>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>blockStyleClass</name>
+            <description>
+                輸入欄外面的容器的 class / The Html "class" Attribute For The Container Element Outside The Input Element
+            </description>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>inputTextStyleClass</name>
+            <description>
+                The Html "class" Attribute For The Input Element
+            </description>
+            <type>java.lang.String</type>            
+        </attribute>
+        <attribute>
+            <name>datePattern</name>
+            <description>
+                <![CDATA[
+                日期的格式，寫法即Java本身支援的，預設為 'yyyy-MM-dd' &#x13&#x10;
+                Date Part Format, Is Same As With Java, Default Is 'yyyy-MM-dd'          
+                ]]>  
+            </description>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>timeZone</name>
+            <type>java.lang.String</type>
+        </attribute>    
+        <attribute>
+            <name>dataType</name>
+            <description>Date、localDate or Something Else, Is Same As 'type' Attribute For f:convertDateTime</description>
+        </attribute>        
+        <attribute>
+            <name>disableValidate</name>
+            <description>是否關閉JPA驗證，預設為否 / Close JPA Validation, Default Is false</description>
+            <type>java.lang.Boolean</type>
+        </attribute>
+        <attribute>
+            <name>allowInput</name>
+            <description>是否允許手動輸入，預設為false / Allow Key In, Default Is false</description>
+            <type>java.lang.Boolean</type>
+        </attribute>
+    </tag>           
+    
     <tag>
         <tag-name>abbrevOutputText</tag-name>
         <source>tagimpl/abbrevOutputText.xhtml</source>
