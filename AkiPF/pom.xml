@@ -76,7 +76,7 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>AkiJSFCore</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.3.0-SNAPSHOT</version>
         </dependency>
         
         <dependency>

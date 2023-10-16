@@ -48,6 +48,7 @@ public class JsfPageBean {
 
     protected String systemRootPath;
     protected UrlProvider urlProvider;
+    protected Boolean printLog;
 
     public JsfPageBean() {
         msgBuffer = new LinkedList();
@@ -72,19 +73,16 @@ public class JsfPageBean {
     }
 
     protected void showInfoMessage(String message) {
-//        JsfMessage.addFacesMessage(message, FacesMessage.SEVERITY_INFO);
         FacesMessage.Severity serverity = FacesMessage.SEVERITY_INFO;
         this.showMessage(message, serverity);
     }
 
     protected void showWarningMessage(String message) {
-//        JsfMessage.addFacesMessage(message, FacesMessage.SEVERITY_WARN);
         FacesMessage.Severity serverity = FacesMessage.SEVERITY_WARN;
         this.showMessage(message, serverity);
     }
 
     protected void showFatalMessage(String message) {
-//        JsfMessage.addFacesMessage(message, FacesMessage.SEVERITY_FATAL);        
         FacesMessage.Severity serverity = FacesMessage.SEVERITY_FATAL;
         this.showMessage(message, serverity);
     }
@@ -106,9 +104,11 @@ public class JsfPageBean {
      * 會轉頁
      */
     public String redirectToNextPage() {
-        System.out.println("nextPage : " + nextPage);
+        if(printLog) {
+            String msgFmt = "[%s]redirectToNextPage(): nextPage= %s";
+            System.out.println(String.format(msgFmt, this.getClass().getSimpleName(), nextPage));
+        }
         if (nextPage != null) {
-//            this.recordNowPage();
             return nextPage + "?faces-redirect=true";
         } else {
             return null;
