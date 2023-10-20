@@ -24,30 +24,23 @@
         .tag-chip > .tag-chip-summary {
 
         }
-        
+
         .tag-chip > .tag-chip-detail {
 
-        }        
+        }
     </style>    
     <ui:remove>
         <!--
         f:convertDateTime rendered false 沒有用，但因為他不會影響非Date類的顯示，所以就不固執要付上去了
         -->
     </ui:remove>
-    <h:panelGroup styleClass="tag-chip#{empty styleClass ? '': ' ' +styleClass}" rendered="#{!empty summary}" style="#{style}">                           
+    <h:panelGroup rendered="#{not empty textSummary or not empty dataSummary or not empty datasSummary}" 
+                  styleClass="tag-chip#{empty styleClass ? '' : ' ' + styleClass}" style="#{style}">                           
         <h:outputText styleClass="tag-chip-label" value="#{label}"/>
-        <h:outputText value="#{ empty splitMark ? ':' : splitMark}"/>
-        <ui:remove>
-        <!--
-        <h:outputText styleClass="tag-chip-summary" value="#{summary}"       
-                      converter="tw.dev.tomoaki.util.jsf.JsfConverter4StringShortner">     
-            <f:attribute name="tw.dev.tomoaki.util.jsf.JsfConverter4StringShortner.PrefixLength" value="#{empty shortnerPre ? '14' : shortnerPre}"/>
-            <f:attribute name="tw.dev.tomoaki.util.jsf.JsfConverter4StringShortner.SuffixLength" value="#{empty shortnerSuf ? '17' : shortnerSuf}"/>            
-            <f:attribute name="tw.dev.tomoaki.util.jsf.JsfConverter4StringShortner.OmitSymbol" value="#{empty shortnerOmit ? '....' : shortnerOmit}"/>         
-        </h:outputText>
-        -->
-        </ui:remove>
-        <h:outputText styleClass="tag-chip-summary" value="#{summary}"/>                              
+        <h:outputText value="#{empty splitMark ? ':' : splitMark}"/>
+        <h:outputText styleClass="tag-chip-summary" value="#{textSummary}" rendered="#{not empty textSummary}"/>
+        <h:outputText styleClass="tag-chip-summary" value="#{dataSummary}" rendered="#{not empty dataSummary}" converter="#{dataTextConverter}"/>
+        <h:outputText styleClass="tag-chip-summary" value="#{datasSummary}" rendered="#{not empty datasSummary}" converter="#{dataTextConverter}"/>
         <h:outputText value="#{detail}" rendered="#{false}"/>
-    </h:panelGroup>          
+    </h:panelGroup>
 </ui:composition>

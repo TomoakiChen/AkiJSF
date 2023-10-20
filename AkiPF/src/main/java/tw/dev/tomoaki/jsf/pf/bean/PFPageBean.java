@@ -221,15 +221,15 @@ public class PFPageBean extends JsfPageBean {
 //</editor-fold>
     
 //<editor-fold defaultstate="collapsed" desc="輔助內頁(Inner Window)">
-    private void doRecordWinowOpen(String widgetVar) {
+    protected void doRecordWinowOpen(String widgetVar) {
         openingInnerWindowMap.add(widgetVar);
     }
     
-    private void doRecordWinowClose(String widgetVar) {
+    protected void doRecordWinowClose(String widgetVar) {
         openingInnerWindowMap.remove(widgetVar);
     }    
     
-    private void doRecordWindowRest(String widgetVar) {
+    protected void doRecordWindowRest(String widgetVar) {
         restingInnerWindow.add(widgetVar);
     }
     

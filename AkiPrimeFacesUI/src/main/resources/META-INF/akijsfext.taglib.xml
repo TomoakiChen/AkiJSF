@@ -4,10 +4,69 @@
     <tag>
         <tag-name>tagChip</tag-name>
         <source>tagimpl/tagchip.xhtml</source>
+        <attribute>
+            <name>textSummary</name>
+            <description>想顯示的資料即是純文字(String)時使用 </description>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>dataSummary</name>
+            <description>想顯示的資料是單一 Entity 時使用 </description>
+        </attribute>
+        <attribute>
+            <name>dataTextConverter</name>
+            <description>使用 dataSummary 時所需，配合決定如何將 Entity 資料顯示出來(成文字)，需實作JSF Converter </description>
+        </attribute>
+        <attribute>
+            <name>datasSummary</name>
+            <description>想顯示的資料是多個 Entity 時使用 </description>
+        </attribute>
+        <attribute>
+            <name>datasTextConverter</name>
+            <description>使用 datasSummary 時所需，配合決定如何將 Entity 清單資料顯示出來(成文字) </description>
+        </attribute>
+        <attribute>
+            <name>label</name>
+            <description>顯示資料的標題</description>
+            <type>java.lang.String</type>            
+        </attribute>
+        <attribute>
+            <name>styleClass</name>
+            <description></description>            
+        </attribute>
+        <attribute>
+            <name>style</name>
+            <description></description>            
+        </attribute>
     </tag>
     <tag>
         <tag-name>tagChipDateTime</tag-name>
         <source>tagimpl/tagchipDateTime.xhtml</source>
+        <attribute>
+            <name>dateTimeSummary</name>
+            <description>想顯示的資料即是日期時間時使用。日期時間泛指 LocalDateTime、LocalDate、Date 等等 </description>
+        </attribute>
+        <attribute>
+            <name>label</name>
+            <description>顯示資料的標題</description>
+            <type>java.lang.String</type>            
+        </attribute>
+        <attribute>
+            <name>styleClass</name>
+            <description></description>            
+        </attribute>
+        <attribute>
+            <name>style</name>
+            <description></description>            
+        </attribute>
+        <attribute>
+            <name>dateTimePattern</name>
+            <description>轉成文字的格式，預設 yyy-MM-dd HH:mm:ss</description>            
+        </attribute>        
+        <attribute>
+            <name>dateTimeZone</name>
+            <description>時間區間</description>            
+        </attribute>                
     </tag>    
     <tag>
         <tag-name>dateTimePicker</tag-name>
