@@ -29,7 +29,8 @@ public class PFPageBean extends JsfPageBean {
     }
 
     public void excuteJs(String js) {
-//        System.out.println("js : " + js);
+        String msgFmt = "[%s] js= %s";
+        System.out.println(String.format(msgFmt, this.getClass().getSimpleName(), js));
         PrimeFaces.current().executeScript(js);
     }
 

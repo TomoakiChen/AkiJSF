@@ -44,6 +44,10 @@
         <source>tagimpl/tagchipDateTime.xhtml</source>
         <attribute>
             <name>dateTimeSummary</name>
+            <description>想顯示的日期時間資料</description>
+        </attribute>        
+        <attribute>
+            <name>dateTimeType</name>
             <description>想顯示的資料即是日期時間時使用。日期時間泛指 LocalDateTime、LocalDate、Date 等等 </description>
         </attribute>
         <attribute>

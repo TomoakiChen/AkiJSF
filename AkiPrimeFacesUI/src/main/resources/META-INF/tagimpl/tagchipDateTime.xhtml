@@ -15,6 +15,8 @@
             padding-bottom: 1px;
             border-radius: 4px;
             margin-right:3px;
+            display: inline-flex;
+            align-items: center;            
         }
 
         .tag-chip > .tag-chip-label {
@@ -33,7 +35,7 @@
         <h:outputText styleClass="tag-chip-label" value="#{label}"/>
         <h:outputText value="#{ empty splitMark ? ':' : splitMark}"/>
         <h:outputText styleClass="tag-chip-summary" value="#{dateTimeSummary}">
-            <f:convertDateTime type="#{empty dateTimeSummary ? 'localDateTime' : dateTimeSummary}"
+            <f:convertDateTime type="#{empty dateTimeType ? 'localDateTime' : dateTimeType}"
                                pattern="#{empty dateTimePattern ? 'yyyy-MM-dd HH:mm:ss' : dateTimePattern}"
                                timeZone="#{empty dateTimeZone? 'GMT+8' : dateTimeZone}"/>
         </h:outputText>
