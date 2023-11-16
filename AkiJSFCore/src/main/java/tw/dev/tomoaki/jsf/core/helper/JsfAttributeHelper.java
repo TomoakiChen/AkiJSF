@@ -26,7 +26,7 @@ public class JsfAttributeHelper {
     
     public static Object getAttrValue(String attrName) {
         FacesContext context = FacesContext.getCurrentInstance();
-        UIComponent component = UIComponent.getCurrentComponent(context);
+        UIComponent component = UIComponent.getCurrentComponent(context);               
         return component.getAttributes().get(attrName);
     }
 }

@@ -156,6 +156,11 @@
             <description>是否顯示時間，預設為true，如為false則dateTimePattern中的 time pattern 無效(?)</description>
             <type>java.lang.Boolean</type>
         </attribute>
+        <attribute>
+            <name>required</name>
+            <description>是否必填，預設為 false / Required Or Not, Default Is false (Not Required)</description>
+            <type>java.lang.Boolean</type>
+        </attribute>           
     </tag>
 
     <tag>
@@ -228,6 +233,11 @@
             <description>是否允許手動輸入，預設為false / Allow Key In, Default Is false</description>
             <type>java.lang.Boolean</type>
         </attribute>
+        <attribute>
+            <name>required</name>
+            <description>是否必填，預設為 false / Required Or Not, Default Is false (Not Required)</description>
+            <type>java.lang.Boolean</type>
+        </attribute>        
     </tag>           
     
     <tag>
