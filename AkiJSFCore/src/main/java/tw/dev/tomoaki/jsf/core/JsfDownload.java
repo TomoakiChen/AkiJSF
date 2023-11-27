@@ -3,70 +3,72 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tw.dev.tomoaki.util.jsf;
+package tw.dev.tomoaki.jsf.core;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
 import javax.faces.context.*;//FacesContext;
+
 /**
  *
  * @author tomoaki
  */
 public class JsfDownload {
+
     private FacesContext fc;
     private ExternalContext ec;
     private static final int BUFFSIZE = 2048;
-     File theFile;
-    public JsfDownload()
-    {
+    File theFile;
+
+    protected JsfDownload() {
         fc = FacesContext.getCurrentInstance();
         ec = fc.getExternalContext();
     }
-    public void doDownload(String theFilePath) throws IOException
-    {
+    
+    
+    
+    
+
+    public void doDownload(String theFilePath) throws IOException {
         String theFileName = theFilePath.substring(theFilePath.lastIndexOf("/") + 1);
-        doDownload(theFilePath,theFileName);
+        doDownload(theFilePath, theFileName);
     }
-    public void doDownload(String theFilePath,String theFileName) throws FileNotFoundException, IOException
-    {
-//        System.out.println("download file path = " + theFilePath);
+
+    public void doDownload(String theFilePath, String theFileName) throws FileNotFoundException, IOException {
         theFile = new File(theFilePath);
-        if(theFile.exists())
-        {
+        if (theFile.exists()) {
             String mimeType = ec.getMimeType(theFileName);
-            if(mimeType == null)
+            if (mimeType == null) {
                 mimeType = "application/octet-stream";
+            }
             ec.responseReset();
             ec.setResponseContentType(mimeType);
-            ec.setResponseContentLength((int)theFile.length());
+            ec.setResponseContentLength((int) theFile.length());
             ec.setResponseHeader("Content-Disposition", "attachment; filename=\"" + theFileName + "\"");
 
             byte[] buff = new byte[BUFFSIZE];
             FileInputStream fileReader = new FileInputStream(theFile);
             OutputStream fileWriter = ec.getResponseOutputStream();
             int bytesReaded = -1;
-            while( (fileReader != null)  && ( (bytesReaded = fileReader.read(buff)) != -1) )
-            {
-               fileWriter.write(buff,0,bytesReaded);
+            while ((fileReader != null) && ((bytesReaded = fileReader.read(buff)) != -1)) {
+                fileWriter.write(buff, 0, bytesReaded);
             }
             fileReader.close();
             fileWriter.flush();
             fileWriter.close();
 
             fc.responseComplete();
-        }
-        else
-        {
+        } else {
             System.out.println("下載檔案時發生錯誤:檔案不存在");
         }
     }
-    public void deleteFile()
-    {
-        if(theFile.exists())
-        {
+
+    public void deleteFile() {
+        if (theFile.exists()) {
             theFile.delete();
-        }    
+        }
     }
 }

@@ -1,12 +1,11 @@
 <?xml version='1.0' encoding='UTF-8' ?> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-                id="#{empty id ? component.id : id}">
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <style>
         body .ui-datepicker .ui-timepicker-div dl dd {
             margin: 0;    
@@ -21,8 +20,8 @@
     <h:outputScript name="flatpicker-datetimepicker/plugins/confirmDate.js"/>
     <h:outputStylesheet name="flatpicker-datetimepicker/plugins/confirmDate.css"/>    
     
-    <p:outputPanel id="#{empty id ? component.id : id}_datepicker" style="#{empty blockStyle ? '' : blockStyle}" styleClass="#{empty  blockStyleClass ? '' :  blockStyleClass}">
-        <p:inputText id="#{empty id ? component.id : id}" widgetVar="#{id}_datepicker_text" value="#{value}"
+    <div style="#{empty blockStyle ? '' : blockStyle}" styleClass="#{empty  blockStyleClass ? '' :  blockStyleClass}">
+        <p:inputText id="#{empty id ? component.clientId : id}" value="#{value}"
                      required="#{empty required ? false : required}"
                      styleClass="#{inputTextStyleClass}">
             <f:convertDateTime type="#{empty dataType ? 'localDate' : dataType}"
@@ -47,5 +46,5 @@
                  });
              </script>             
         </p:inputText>
-    </p:outputPanel>
-</ui:composition>
+    </div>
+</ui:component>
