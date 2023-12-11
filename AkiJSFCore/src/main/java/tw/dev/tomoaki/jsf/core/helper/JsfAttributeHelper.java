@@ -22,11 +22,26 @@ import javax.faces.context.FacesContext;
  *
  * @author tomoaki
  */
-public class JsfAttributeHelper {
-    
-    public static Object getAttrValue(String attrName) {
+public class JSFAttributeHelper {
+
+    public static Object getLocalComponentAttrValue(String attrName) {
         FacesContext context = FacesContext.getCurrentInstance();
-        UIComponent component = UIComponent.getCurrentComponent(context);               
+//        UIComponent component = UIComponent.getCurrentComponent(context);
+//        return component.getAttributes().get(attrName);
+        return JSFAttributeHelper.getGlobalAttrValue(context, attrName);
+    }
+
+    public static Object getLocalComponentAttrValue(FacesContext context, String attrName) {
+        UIComponent component = UIComponent.getCurrentComponent(context);
         return component.getAttributes().get(attrName);
+    }
+
+    public static Object getGlobalAttrValue(String attrName) {
+        FacesContext context = FacesContext.getCurrentInstance();
+        return JSFAttributeHelper.getGlobalAttrValue(context, attrName);
+    }
+
+    public static Object getGlobalAttrValue(FacesContext context, String attrName) {
+        return context.getAttributes().get(attrName);
     }
 }

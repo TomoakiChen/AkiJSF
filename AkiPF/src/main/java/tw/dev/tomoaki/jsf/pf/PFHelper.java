@@ -4,6 +4,7 @@
  */
 package tw.dev.tomoaki.jsf.pf;
 
+import org.primefaces.PrimeFaces;
 import org.primefaces.component.tabview.Tab;
 import org.primefaces.event.TabChangeEvent;
 
@@ -19,5 +20,9 @@ public class PFHelper {
 
     public static String obtainCurrentTabViewId(TabChangeEvent event) {
         return obtainCurrentTabView(event).getId();
+    }
+    
+    public static void update(String... clientIds) {
+        PrimeFaces.current().ajax().update(clientIds);
     }
 }

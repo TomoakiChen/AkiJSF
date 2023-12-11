@@ -40,6 +40,9 @@ public class JsfPaginaDataTableConfig {
 
     public void setDatasPerPage(Integer datasPerPage) {
         this.datasPerPage = datasPerPage;
+        this.datasPerPage = (this.datasPerPage < 5 || this.datasPerPage == null) ? 5 : this.datasPerPage;
+        
+        
     }
 
     public Integer getMaxPageNumbers() {

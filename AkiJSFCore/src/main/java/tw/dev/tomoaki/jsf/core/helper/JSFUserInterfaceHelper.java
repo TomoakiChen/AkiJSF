@@ -21,15 +21,13 @@ import javax.faces.context.FacesContext;
  *
  * @author tomoaki
  */
-public class JSFParamHelper {
-    
-    public static String getParam(String paramName) {
-        String paramValue = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get(paramName);
-        return paramValue;
+public class JSFUserInterfaceHelper {
+ 
+    public static void update(String clientId) {
+        FacesContext contextInstance = FacesContext.getCurrentInstance();
+        if(contextInstance == null) {
+            throw new IllegalArgumentException("Cannot Get Current Instance From FacesContext");
+        }
+        FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add(clientId);
     }
-    
-    public static String getParam(FacesContext currentContext, String paramName) {
-        String paramValue = currentContext.getExternalContext().getRequestParameterMap().get(paramName);
-        return paramValue;
-    }    
 }
