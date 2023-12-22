@@ -9,16 +9,16 @@ package tw.dev.tomoaki.jsf.core;
  *
  * @author tomoaki
  */
-public class JsfMessageException extends Exception{
-    public JsfMessageException(String msg){
+public class JSFMessageException extends Exception{
+    public JSFMessageException(String msg){
         super(msg);
     }
     
-    public JsfMessageException(Throwable ex){
+    public JSFMessageException(Throwable ex){
         super(ex);
     }
     
-    public JsfMessageException(Exception ex){
+    public JSFMessageException(Exception ex){
         super(ex);
     }
 }

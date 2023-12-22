@@ -14,23 +14,37 @@ import javax.servlet.http.HttpSession;
  *
  * @author Tomoaki Chen
  */
-public class JsfHttpHelper {
+public class JSFHttpHelper {
 
     private static final String REDIRECT_SUFFIX = "?faces-redirect=true";
 
     public static String obtainJsfRedirectAction(String nextPage) {
         return (nextPage != null && !nextPage.isEmpty()) ? (nextPage + REDIRECT_SUFFIX) : null;
-    }    
-    
+    }
+
     public static HttpServletRequest obtainServletRequest() {
-        return (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+//        return (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        return JSFHttpHelper.obtainServletRequest(FacesContext.getCurrentInstance());
+    }
+
+    public static HttpServletRequest obtainServletRequest(FacesContext context) {
+        return (HttpServletRequest) context.getExternalContext().getRequest();
     }
 
     public static HttpServletResponse obtainServletResponse() {
-        return (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+//        return (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+        return JSFHttpHelper.obtainServletResponse(FacesContext.getCurrentInstance());
     }
+    
+    public static HttpServletResponse obtainServletResponse(FacesContext context) {
+        return (HttpServletResponse) context.getExternalContext().getResponse();        
+    }    
     
     public static HttpSession obtainSession() {
         return obtainServletRequest().getSession();
-    }
+    }      
+
+    public static HttpSession obtainSession(FacesContext context) {
+        return obtainServletRequest(context).getSession();
+    }     
 }

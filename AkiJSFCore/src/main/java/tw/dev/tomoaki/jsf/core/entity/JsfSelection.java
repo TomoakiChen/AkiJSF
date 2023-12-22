@@ -9,7 +9,7 @@ package tw.dev.tomoaki.jsf.core.entity;
  *
  * @author Tomoaki Chen
  */
-public class JsfSelection<V> {
+public class JSFSelection<V> {
 
     private String label;
     private V value;

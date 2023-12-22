@@ -17,7 +17,7 @@ import tw.dev.tomoaki.util.string.AkiStringUtil;
  * @author tomoaki
  */
 @FacesConverter("tw.dev.tomoaki.util.jsf.JsfConverter4StringShortner")
-public class JsfConverter4StringShortner implements Converter {
+public class JSFConverter4StringShortner implements Converter {
 
     public static String ATTR_PREFIX_LENGTH = "tw.dev.tomoaki.util.jsf.JsfConverter4StringShortner.PrefixLength";
     public static String ATTR_SUFFIX_LENGTH = "tw.dev.tomoaki.util.jsf.JsfConverter4StringShortner.SuffixLength";

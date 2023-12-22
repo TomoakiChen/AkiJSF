@@ -14,7 +14,7 @@ import tw.dev.tomoaki.util.cast.JavaToJson;
  *
  * @author Tomoaki Chen
  */
-public interface JsfBeanQuery {
+public interface JSFBeanQuery {
 //public abstract class JsfBeanQuery {
     
 //    private final Base64.Encoder encoder = Base64.getEncoder();

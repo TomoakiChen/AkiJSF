@@ -13,18 +13,18 @@
     
     <repositories>
         <repository>
-            <id>jitpack.io</id>
-            <url>https://jitpack.io</url>
-        </repository>
-        
-        <repository>
             <id>ccs-packages</id>
             <name>CCS Packages</name>            
             <url>http://192.168.107.166:8082/repository/ccs-packages/</url>
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>            
-        </repository>            
+        </repository> 
+                
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>           
     </repositories>        
     
     <dependencies>

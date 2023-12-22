@@ -7,14 +7,14 @@ package tw.dev.tomoaki.jsf.pf.bean;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import org.primefaces.PrimeFaces;
-import tw.dev.tomoaki.jsf.core.JsfPageBean;
+import tw.dev.tomoaki.jsf.core.JSFPageBean;
 import tw.dev.tomoaki.util.entity.DataExistMap;
 
 /**
  *
  * @author tomoaki
  */
-public class PFPageBean extends JsfPageBean {
+public class PFPageBean extends JSFPageBean {
 
     private static final String DEFAULT_NEW_WINDOW_OR_TAB_NAME = "_target";
 

@@ -9,25 +9,25 @@ package tw.dev.tomoaki.jsf.core.ui.datatable;
  *
  * @author Tomoaki Chen
  */
-public class JsfPaginaDataTableConfig {
+public class JSFPaginaDataTableConfig {
 
     private Integer datasPerPage;
     private Integer maxPageNumbers;
 
-    protected JsfPaginaDataTableConfig() {
+    protected JSFPaginaDataTableConfig() {
     }
 
     public static class Factory {
 
-        public static JsfPaginaDataTableConfig create() {
-            JsfPaginaDataTableConfig config = new JsfPaginaDataTableConfig();
+        public static JSFPaginaDataTableConfig create() {
+            JSFPaginaDataTableConfig config = new JSFPaginaDataTableConfig();
             config.datasPerPage = 10;
             config.maxPageNumbers = 5;
             return config;
         }
 
-        public static JsfPaginaDataTableConfig create(Integer dataPerPage) {
-            JsfPaginaDataTableConfig config = new JsfPaginaDataTableConfig();
+        public static JSFPaginaDataTableConfig create(Integer dataPerPage) {
+            JSFPaginaDataTableConfig config = new JSFPaginaDataTableConfig();
             config.datasPerPage = dataPerPage == null ? 10 : dataPerPage;
             config.maxPageNumbers = 5;
             return config;

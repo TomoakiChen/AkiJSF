@@ -12,7 +12,7 @@ import javax.faces.context.FacesContext;
  *
  * @author tomoaki
  */
-public class JsfMessageHelper {
+public class JSFMessageHelper {
 
 //<editor-fold defaultstate="collapsed" desc="核心methods">
     public static void addFacesMessage(FacesMessage.Severity serverity, String message) {

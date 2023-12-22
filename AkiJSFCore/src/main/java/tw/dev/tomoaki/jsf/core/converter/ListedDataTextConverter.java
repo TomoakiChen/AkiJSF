@@ -27,7 +27,6 @@ public abstract class ListedDataTextConverter<T> implements Converter<List<T>>, 
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, List<T> dataList) {
-        System.out.println(JSFAttributeHelper.getGlobalAttrValue(FacesContext.getCurrentInstance(), "desigLangLocale"));
         return dataList.stream().map(this::obtainDataText).collect(Collectors.joining(getSeparator(), getPrefix(), getSuffix()));
     }
 

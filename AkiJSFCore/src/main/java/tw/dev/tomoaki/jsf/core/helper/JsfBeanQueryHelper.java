@@ -17,7 +17,7 @@ import tw.dev.tomoaki.util.cast.JsonToJava;
  *
  * @author Tomoaki Chen
  */
-public class JsfBeanQueryHelper {
+public class JSFBeanQueryHelper {
  
     private final static String URL_CHAR_ENCODE = "UTF-8";
     private final static Base64.Encoder encoder = Base64.getEncoder();

@@ -5,7 +5,7 @@
  */
 package tw.dev.tomoaki.jsf.core;
 
-import tw.dev.tomoaki.jsf.core.helper.JsfMessageHelper;
+import tw.dev.tomoaki.jsf.core.helper.JSFMessageHelper;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
@@ -17,7 +17,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import tw.dev.tomoaki.jsf.core.helper.JsfHttpHelper;
+import tw.dev.tomoaki.jsf.core.helper.JSFHttpHelper;
 //import tw.dev.hcfeng.util.secutiry.AccessKeyUtil;
 //import tw.dev.tomoaki.util.collection.UrlCreator;
 import tw.dev.tomoaki.util.web.PageInfo;
@@ -29,7 +29,7 @@ import tw.dev.tomoaki.util.web.WebHelper;
  *
  * @author tomoaki
  */
-public class JsfPageBean {
+public class JSFPageBean {
 
     protected final static String SESSION_ATTR_PAGESTACK = "sEssSionKeYPAgeSTaCk";
 
@@ -50,7 +50,7 @@ public class JsfPageBean {
     protected UrlProvider urlProvider;
     protected Boolean printLog;
 
-    public JsfPageBean() {
+    public JSFPageBean() {
         msgBuffer = new LinkedList();
         this.doInitJsfPageBean();
     }
@@ -89,7 +89,7 @@ public class JsfPageBean {
 
     private void showMessage(String message, FacesMessage.Severity serverity) {
         this.message = message;
-        JsfMessageHelper.addFacesMessage(serverity, message);
+        JSFMessageHelper.addFacesMessage(serverity, message);
     }
 
     public void setNextPage(String nextPage) {
@@ -125,15 +125,15 @@ public class JsfPageBean {
 
     protected HttpServletRequest getRequest() {
 //        return (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-        return JsfHttpHelper.obtainServletRequest();
+        return JSFHttpHelper.obtainServletRequest();
     }
     
     protected HttpServletResponse getResponse() {
-        return JsfHttpHelper.obtainServletResponse();
+        return JSFHttpHelper.obtainServletResponse();
     }
     
     protected HttpSession getSession() {
-        return JsfHttpHelper.obtainSession();
+        return JSFHttpHelper.obtainSession();
     }
 
     public void doUpdateComponent(String id) {
@@ -144,19 +144,19 @@ public class JsfPageBean {
         HttpServletRequest request = this.getRequest();
         HttpSession session = request.getSession();
         String nowPage = WebHelper.getNowPage(request);
-        PageStack pageStack = (PageStack)session.getAttribute(JsfPageBean.SESSION_ATTR_PAGESTACK);
+        PageStack pageStack = (PageStack)session.getAttribute(JSFPageBean.SESSION_ATTR_PAGESTACK);
         if (pageStack == null) {
             pageStack = new PageStack();
         }
         pageStack.push(nowPage);
-        session.setAttribute(JsfPageBean.SESSION_ATTR_PAGESTACK, pageStack);
+        session.setAttribute(JSFPageBean.SESSION_ATTR_PAGESTACK, pageStack);
     }
 
     protected PageInfo popLastPage() {
         HttpSession session = this.getSession();
-        PageStack pageStack = (PageStack) session.getAttribute(JsfPageBean.SESSION_ATTR_PAGESTACK);
+        PageStack pageStack = (PageStack) session.getAttribute(JSFPageBean.SESSION_ATTR_PAGESTACK);
         PageInfo pageInfo = pageStack.pop();
-        session.setAttribute(JsfPageBean.SESSION_ATTR_PAGESTACK, pageStack);
+        session.setAttribute(JSFPageBean.SESSION_ATTR_PAGESTACK, pageStack);
         return pageInfo;
     }
 

@@ -16,14 +16,14 @@ import javax.faces.context.*;//FacesContext;
  *
  * @author tomoaki
  */
-public class JsfDownload {
+public class JSFDownload {
 
     private FacesContext fc;
     private ExternalContext ec;
     private static final int BUFFSIZE = 2048;
     File theFile;
 
-    protected JsfDownload() {
+    protected JSFDownload() {
         fc = FacesContext.getCurrentInstance();
         ec = fc.getExternalContext();
     }

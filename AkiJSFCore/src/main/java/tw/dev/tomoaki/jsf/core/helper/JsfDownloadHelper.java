@@ -5,7 +5,7 @@ import javax.faces.context.*;
  *
  * @author tomoaki
  */
-public class JsfDownloadHelper {
+public class JSFDownloadHelper {
  
     /*
     之前在普通(自建)的 Servlet 有發現， 
