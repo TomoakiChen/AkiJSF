@@ -4,6 +4,7 @@ import javax.faces.context.*;
 /**
  *
  * @author tomoaki
+ * 
  */
 public class JSFDownloadHelper {
  
@@ -17,7 +18,7 @@ public class JSFDownloadHelper {
     
     
     public static void doDownload(String theFilePath, String theFileName) {
-        System.out.println("JsfDownloadHelper(): ");
+        System.out.println("JSFDownloadHelper(): ");
         doCheckInstance();
     }
     
