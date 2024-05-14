@@ -24,12 +24,12 @@ public class JSFDownloader {
 
     // https://blog.csdn.net/u012561176/article/details/83418658
     private static final FacesContext facesContext;
-    private static final ExternalContext externalCOntext;
+    private static final ExternalContext externalContext;
     private static final int BUFFSIZE = 2048;
 
     static {
         facesContext = FacesContext.getCurrentInstance();
-        externalCOntext = facesContext.getExternalContext();
+        externalContext = facesContext.getExternalContext();
     }
 
     public static void doDisplay(String downloadingFileName, byte[] fileBytes) throws FileNotFoundException, IOException {
@@ -56,22 +56,21 @@ public class JSFDownloader {
     }
 
     public static void doDisplay(String downloadingFileName, InputStream fileReader, Integer downloadingFileLength) throws FileNotFoundException, IOException {
-        String mimeType = externalCOntext.getMimeType(downloadingFileName);
+        String mimeType = externalContext.getMimeType(downloadingFileName);
         if (mimeType == null) {
             mimeType = "application/octet-stream";
         }
-        externalCOntext.responseReset();
-        externalCOntext.setResponseContentType(mimeType);
-
-        externalCOntext.setResponseHeader("Content-Disposition", "inline; filename=\"" + downloadingFileName + "\"");
+        externalContext.responseReset();
+        externalContext.setResponseContentType(mimeType);
+        externalContext.setResponseHeader("Content-Disposition", "inline; filename=\"" + downloadingFileName + "\"");
 
         if (downloadingFileLength != null) {
-            externalCOntext.setResponseContentLength(downloadingFileLength);
+            externalContext.setResponseContentLength(downloadingFileLength);
         }
 
         byte[] buff = new byte[BUFFSIZE];
         OutputStream fileWriter;
-        fileWriter = externalCOntext.getResponseOutputStream();
+        fileWriter = externalContext.getResponseOutputStream();
         int bytesReaded = -1;
         while ((fileReader != null) && ((bytesReaded = fileReader.read(buff)) != -1)) {
             fileWriter.write(buff, 0, bytesReaded);
@@ -107,22 +106,21 @@ public class JSFDownloader {
     }
 
     public static void doDownload(String downloadingFileName, InputStream fileReader, Integer downloadingFileLength) throws FileNotFoundException, IOException {
-        String mimeType = externalCOntext.getMimeType(downloadingFileName);
+        String mimeType = externalContext.getMimeType(downloadingFileName);
         if (mimeType == null) {
             mimeType = "application/octet-stream";
         }
-        externalCOntext.responseReset();
-        externalCOntext.setResponseContentType(mimeType);
-
-        externalCOntext.setResponseHeader("Content-Disposition", "attachment; filename=\"" + downloadingFileName + "\"");
+        externalContext.responseReset();
+        externalContext.setResponseContentType(mimeType);
+        externalContext.setResponseHeader("Content-Disposition", "attachment; filename=\"" + downloadingFileName + "\"");
 
         if (downloadingFileLength != null) {
-            externalCOntext.setResponseContentLength(downloadingFileLength);
+            externalContext.setResponseContentLength(downloadingFileLength);
         }
 
         byte[] buff = new byte[BUFFSIZE];
         OutputStream fileWriter;
-        fileWriter = externalCOntext.getResponseOutputStream();
+        fileWriter = externalContext.getResponseOutputStream();
         int bytesReaded = -1;
         while ((fileReader != null) && ((bytesReaded = fileReader.read(buff)) != -1)) {
             fileWriter.write(buff, 0, bytesReaded);
