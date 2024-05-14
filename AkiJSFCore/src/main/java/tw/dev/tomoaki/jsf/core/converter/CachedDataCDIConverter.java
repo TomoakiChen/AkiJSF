@@ -5,6 +5,7 @@
 package tw.dev.tomoaki.jsf.core.converter;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -16,6 +17,8 @@ import tw.dev.tomoaki.util.commondatavalidator.StringValidator;
 /**
  *
  * @author tomoaki
+ * @param <DATA>
+ * @param <DATA_CACHE>
  */
 public abstract class CachedDataCDIConverter<DATA, DATA_CACHE extends CachedData<DATA>> implements Converter<DATA>, Serializable {
     
@@ -26,6 +29,10 @@ public abstract class CachedDataCDIConverter<DATA, DATA_CACHE extends CachedData
     }
     
     protected abstract DATA_CACHE obtainCachedDataMap(List<DATA> dataList);
+    
+    public void appendCachedMap(DATA... datas) {
+        this.appendCachedMap(Arrays.asList(datas));
+    }
     
     public void appendCachedMap(List<DATA> dataList) {
         if (this.cachedDbDataMap == null) {

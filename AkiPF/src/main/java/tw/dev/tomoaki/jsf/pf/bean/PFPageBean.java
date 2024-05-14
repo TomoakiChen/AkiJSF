@@ -28,9 +28,9 @@ public class PFPageBean extends JSFPageBean {
         this.restingInnerWindow = new ConcurrentLinkedQueue();//LinkedList();
     }
 
-    public void excuteJs(String js) {
-        String msgFmt = "[%s] js= %s";
-        System.out.println(String.format(msgFmt, this.getClass().getSimpleName(), js));
+    public void excuteJs(String js) {        
+        String msgFmt = "excuteJs(): js= %s";
+        this.tryPrintLog(msgFmt, js);
         PrimeFaces.current().executeScript(js);
     }
 
@@ -257,7 +257,7 @@ public class PFPageBean extends JSFPageBean {
     }
 
     protected Boolean isPrintLog() {
-        return Boolean.FALSE;
+        return printLog != null && printLog;
     }
 
     protected void tryPrintLog(String appendMsgFmt, Object... args) {

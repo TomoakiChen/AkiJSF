@@ -4,7 +4,7 @@
     <groupId>tw.dev.tomoaki</groupId>   
     <artifactId>AkiPF</artifactId>
     <!--<version>1.3.0-SNAPSHOT</version>-->
-    <version>1.4.0-SNAPSHOT</version>
+    <version>1.4.1-SNAPSHOT</version>
     <!--1.4.0 後開始使用 AkiJSFCore-2.0.0 -->
     <packaging>jar</packaging>
     <build>

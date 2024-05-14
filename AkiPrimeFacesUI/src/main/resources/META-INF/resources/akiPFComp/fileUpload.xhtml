@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/xhtml.xhtml to edit this template
+-->
+<!DOCTYPE html>
+<html xmlns = "http://www.w3.org/1999/xhtml"   
+      xmlns:h = "http://java.sun.com/jsf/html"
+      xmlns:f = "http://java.sun.com/jsf/core"
+      xmlns:composite = "http://java.sun.com/jsf/composite"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <composite:interface>
+        <composite:attribute name="uploadFileLabel" type="java.lang.String" default="Upload"/>
+        <composite:attribute name="uploadFileIcon" type="java.lang.String" default="pi pi-upload"/>
+        <composite:attribute name="uploadFileListener" method-signature="void uploadFileListener(org.primefaces.event.FileUploadEvent)"/>
+
+        <composite:attribute name="uploadingFileLabel" type="java.lang.String" default="New"/>        
+        <composite:attribute name="uploadingFile" type="org.primefaces.model.file.UploadedFile"/>
+        <composite:attribute name="previewUploadedFileListener" method-signature="void previewUploadedFileListener(org.primefaces.model.file.UploadedFile)" />
+        <composite:attribute name="cancelUploadingFileListener" method-signature="void cancelUploadingFileListener" />
+        
+        <composite:attribute name="recentFileLabel" type="java.lang.String" default="Recent"/>        
+        <composite:attribute name="recentFile" type="org.primefaces.model.file.UploadedFile"/>
+        <composite:attribute name="recentFileURLProvider" method-signature="java.lang.String recentFileURLProvider(org.primefaces.model.file.UploadedFile)"/>
+        <composite:attribute name="removeRecentFileListener" method-signature="void removeRecentFileListener"/>
+        <composite:attribute name="cancelRemoveRecentFileListener" method-signature="void cancelRecentFileListener"/>        
+        
+        <composite:attribute name="isRemovingRecentFile" type="java.lang.Boolean"/>
+    </composite:interface>
+
+    <composite:implementation>
+        <p:outputPanel id="#{paperFileType}CmdBlock" styleClass="ui-g wid-50 wid-md-75 wid-sm-100 file-input-block">
+            <p:outputPanel id="fileUploadInput">
+                <p:fileUpload mode="simple" auto="#{true}" skinSimple="#{true}" label="#{cc.attrs.uploadFileLabel}" chooseIcon="#{cc.attrs.uploadFileIcon}"
+                              listener="#{cc.attrs.uploadFileListener}"/>
+            </p:outputPanel>
+
+            <p:outputPanel id="tempFileBlock">
+                <p:outputLabel value="#{cc.attrs.uploadingFileLabel}" styleClass="file-display-title"/>
+
+                <p:commandLink value="#{cc.attrs.uploadingFile.fileName}" target="_paperFile"
+                               rendered="#{not empty cc.attrs.uploadingFile}" styleClass="file-display-link"
+                               actionListener="#{cc.attrs.previewUploadedFileListener(cc.attrs.uploadingFile)}"/>
+
+                <p:commandLink rendered="#{not empty cc.attrs.uploadingFile}" styleClass="file-delete" title="Canel Uploading"
+                               actionListener="#{cc.attrs.cancelUploadingFileListener}"
+                               process="@this" update="@form:fileUploadForm">
+                    <i class="pi pi-times"/>
+                    <p:confirm header="Confirm" 
+                               message="Do you want to cancel uploading file for #{cc.attrs.uploadFileLabel}?"/>
+                </p:commandLink>            
+            </p:outputPanel>
+
+            <p:outputPanel id="recentFileBlock">
+                <p:outputLabel value="Recent" styleClass="file-display-title flex-eq-height"/>
+
+                <!--line-through-->	
+                <p:link href="#{cc.attrs.recentFileURLProvider(cc.attrs.recentFile)}" target="_paperFile"
+                        rendered="#{not empty cc.attrs.recentFile}" styleClass="file-display-link">
+                    <h:outputText value="#{cc.attrs.recentFile.fileDisplayName}" rendered="#{cc.attrs.isRemovingRecentFile == true}" style="text-decoration: line-through;"/>
+                    <h:outputText value="#{cc.attrs.recentFile.fileDisplayName}" rendered="#{cc.attrs.isRemovingRecentFile == false}"/>
+                </p:link>
+
+                <p:commandLink rendered="#{not empty cc.attrs.recentFile and cc.attrs.isRemovingRecentFile eq false}" styleClass="file-delete" title="Delete File"
+                               actionListener="#{cc.attrs.removeRecentFileListener}" process="@this" update="@form:fileUploadForm">
+                    <!--<i class="pi pi-times"/>-->
+                    <i class="pi pi-trash"/>
+                    <p:confirm header="Confirm" message="Do you want to delete uploaded file for #{paperFileType.summaryEN}?"/>                                    
+                </p:commandLink>
+
+                <p:commandLink rendered="#{not empty cc.attrs.recentFile and cc.attrs.isRemovingRecentFile eq true}" styleClass="file-delete" title="Restore File"
+                               actionListener="#{cc.attrs.cancelRemoveRecentFileListener}" process="@this" update="@form:fileUploadForm">
+                    <i class="pi pi-history"/>
+                    <p:confirm header="Confirm" message="Do you want to restore removed file for #{cc.attrs.uploadFileLabel}?"/>
+                </p:commandLink>                  
+            </p:outputPanel>      
+
+        </p:outputPanel>
+    </composite:implementation>
+</html>    

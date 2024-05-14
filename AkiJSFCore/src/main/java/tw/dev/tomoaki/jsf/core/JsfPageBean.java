@@ -105,7 +105,7 @@ public class JSFPageBean {
      */
     public String redirectToNextPage() {
         if(printLog) {
-            String msgFmt = "[%s]redirectToNextPage(): nextPage= %s";
+            String msgFmt = "[%s] redirectToNextPage(): nextPage= %s";
             System.out.println(String.format(msgFmt, this.getClass().getSimpleName(), nextPage));
         }
         if (nextPage != null) {
