@@ -16,7 +16,7 @@ import javax.faces.context.*;//FacesContext;
  *
  * @author tomoaki
  */
-public class JSFDownload_backup202405141416 {
+public class JSFDownload_backup202405141416 { 
     
     private FacesContext fc;
     private ExternalContext ec;

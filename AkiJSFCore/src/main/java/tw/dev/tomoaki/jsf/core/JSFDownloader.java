@@ -23,14 +23,18 @@ import javax.faces.context.*;//FacesContext;
 public class JSFDownloader {
 
     // https://blog.csdn.net/u012561176/article/details/83418658
-    private static final FacesContext facesContext;
-    private static final ExternalContext externalContext;
+    
+    
+    // private static final FacesContext facesContext;
+    // private static final ExternalContext externalContext;
     private static final int BUFFSIZE = 2048;
 
-    static {
-        facesContext = FacesContext.getCurrentInstance();
-        externalContext = facesContext.getExternalContext();
-    }
+    // static {
+    //     facesContext = FacesContext.getCurrentInstance();
+    //     externalContext = facesContext.getExternalContext();
+    // }
+    
+    
 
     public static void doDisplay(String downloadingFileName, byte[] fileBytes) throws FileNotFoundException, IOException {
         InputStream is = new ByteArrayInputStream(fileBytes);
@@ -56,10 +60,14 @@ public class JSFDownloader {
     }
 
     public static void doDisplay(String downloadingFileName, InputStream fileReader, Integer downloadingFileLength) throws FileNotFoundException, IOException {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        ExternalContext externalContext = facesContext.getExternalContext();
+        
         String mimeType = externalContext.getMimeType(downloadingFileName);
         if (mimeType == null) {
             mimeType = "application/octet-stream";
         }
+        facesContext.responseComplete();
         externalContext.responseReset();
         externalContext.setResponseContentType(mimeType);
         externalContext.setResponseHeader("Content-Disposition", "inline; filename=\"" + downloadingFileName + "\"");
@@ -106,10 +114,14 @@ public class JSFDownloader {
     }
 
     public static void doDownload(String downloadingFileName, InputStream fileReader, Integer downloadingFileLength) throws FileNotFoundException, IOException {
+        FacesContext facesContext = FacesContext.getCurrentInstance(); //這個好像 接近 HttpServletRequest (配合最上面連結)，而如果一開始就拉好( 比如 static {}) ，拉第二次 request 後會說 is closed 
+        ExternalContext externalContext = facesContext.getExternalContext();        
+        
         String mimeType = externalContext.getMimeType(downloadingFileName);
         if (mimeType == null) {
             mimeType = "application/octet-stream";
         }
+        facesContext.responseComplete();
         externalContext.responseReset();
         externalContext.setResponseContentType(mimeType);
         externalContext.setResponseHeader("Content-Disposition", "attachment; filename=\"" + downloadingFileName + "\"");
