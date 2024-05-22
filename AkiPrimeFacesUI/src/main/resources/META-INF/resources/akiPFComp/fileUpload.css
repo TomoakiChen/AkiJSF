@@ -1,0 +1,427 @@
+@charset "UTF-8";
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 2024年5月21日, 下午12:19:12
+    Author     : tomoaki
+*/
+.file-upload-container {
+    --display-title-color: #495057;
+    --display-title-background: #EDEDED;
+}
+
+.file-upload-container {
+    display: flex;
+    width: 100%;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    /* border: 1px dotted lightgrey; */
+}
+
+.file-upload-container > .file-input-block {
+    display: flex;
+}
+
+.file-upload-container > .file-display-block {
+    display: flex; /*這樣就可使底下的等高(不太確定到底) */
+    border: 1px groove darkgray;
+    min-height: 39px;
+}
+
+.file-upload-container.flex-eq-height .file-display-title,
+.file-upload-container.flex-eq-height .file-display-link{
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+}
+
+.file-upload-container > .file-display-block .file-display-title {
+    /* margin-right: 4px; */
+    padding-left: 8px;
+    padding-right: 8px;
+
+    /* background: darkgray; */ /* #A9A9A9BD */
+    background: var(--display-title-background);
+    color: var(--display-title-color);
+    font-weight: 600;
+    border-right: 2px solid #797979; /*solid -> groove 也不錯*/
+
+    width: 15%;
+    /*    min-width: 15%;*/
+    min-width: fit-content;
+    max-width: 15%;
+}
+
+.file-upload-container > .file-display-block .file-display-link {
+    display: flex;
+
+    /* text-wrap: nowrap; 是有這屬性的*/
+    /* text-wrap: balance;*/
+    text-wrap: pretty;
+    overflow: hidden;
+    /*    justify-content: center;    */
+    padding-left: 8px;
+    padding-right: 8px;
+
+    width: 75%;
+    min-width: 75%;
+    max-width: 75%;
+
+    min-height: 39px;
+}
+
+.file-upload-container > .file-display-block .file-delete,
+.file-upload-container > .file-display-block .file-restore {
+    display: inline-flex;
+    flex-wrap: nowrap;
+    align-items: center;
+
+    padding-left: 4px;
+    padding-right: 4px;
+
+    color: darkgray;
+
+    min-width: 10%;
+}
+
+.file-upload-container > .file-display-block .file-delete:hover {
+    color: #B11A17;
+    text-decoration: none;
+}
+
+.file-upload-container > .file-display-block .file-restore:hover {
+    color: #33CC00;
+    text-decoration: none;
+}
+
+
+/* ============================================================================= */
+
+@media (min-width: 1441px) {
+    .file-upload-container > .file-display-block.block-wid-lg-5 {
+        width: 5%;
+    }
+
+    .file-upload-container > .file-display-block.block-wid-lg-10 {
+        width: 10%;
+    }
+
+    .file-upload-container > .file-display-block.block-wid-lg-15 {
+        width: 15%;
+    }
+
+    .file-upload-container > .file-display-block.block-wid-lg-20 {
+        width: 20%;
+    }
+
+    .file-upload-container > .file-display-block.block-wid-lg-25 {
+        width: 25%;
+    }
+
+    .file-upload-container > .file-display-block.block-wid-lg-30 {
+        width: 30%;
+    }
+
+    .file-upload-container > .file-display-block.block-wid-lg-35 {
+        width: 35%;
+    }
+
+    .file-upload-container > .file-display-block.block-wid-lg-40 {
+        width: 40%;
+    }
+
+    .file-upload-container > .file-display-block.block-wid-lg-45 {
+        width: 45%;
+    }
+
+    .file-upload-container > .file-display-block.block-wid-lg-50 {
+        width: 50%;
+    }
+
+    .file-upload-container > .file-display-block.block-wid-lg-55 {
+        width: 55%;
+    }
+
+    .file-upload-container > .file-display-block.block-wid-lg-60 {
+        width: 60%;
+    }
+
+    .file-upload-container > .file-display-block.block-wid-lg-65 {
+        width: 65%;
+    }
+
+    .file-upload-container > .file-display-block.block-wid-lg-70 {
+        width: 70%;
+    }
+
+    .file-upload-container > .file-display-block.block-wid-lg-75 {
+        width: 65%;
+    }
+
+    .file-upload-container > .file-display-block.block-wid-lg-80 {
+        width: 80%;
+    }
+
+    .file-upload-container > .file-display-block.block-wid-lg-85 {
+        width: 85%;
+    }
+
+    .file-upload-container > .file-display-block.block-wid-lg-90 {
+        width: 90%;
+    }
+
+    .file-upload-container > .file-display-block.block-wid-lg-95 {
+        width: 95%;
+    }
+
+    .file-upload-container > .file-display-block.block-wid-lg-100 {
+        width: 100%;
+    }
+}
+
+
+@media (min-width: 1081px) and (max-width: 1440px){
+    .file-upload-container > .file-display-block.block-wid-md-5 {
+        width: 5%;
+    }
+
+    .file-upload-container > .file-display-block.block-wid-md-10 {
+        width: 10%;
+    }
+
+    .file-upload-container > .file-display-block.block-wid-md-15 {
+        width: 15%;
+    }
+
+    .file-upload-container > .file-display-block.block-wid-md-20 {
+        width: 20%;
+    }
+
+    .file-upload-container > .file-display-block.block-wid-md-25 {
+        width: 25%;
+    }
+
+    .file-upload-container > .file-display-block.block-wid-md-30 {
+        width: 30%;
+    }
+
+    .file-upload-container > .file-display-block.block-wid-md-35 {
+        width: 35%;
+    }
+
+    .file-upload-container > .file-display-block.block-wid-md-40 {
+        width: 40%;
+    }
+
+    .file-upload-container > .file-display-block.block-wid-md-45 {
+        width: 45%;
+    }
+
+    .file-upload-container > .file-display-block.block-wid-md-50 {
+        width: 50%;
+    }
+
+    .file-upload-container > .file-display-block.block-wid-md-55 {
+        width: 55%;
+    }
+
+    .file-upload-container > .file-display-block.block-wid-md-60 {
+        width: 60%;
+    }
+
+    .file-upload-container > .file-display-block.block-wid-md-65 {
+        width: 65%;
+    }
+
+    .file-upload-container > .file-display-block.block-wid-md-70 {
+        width: 70%;
+    }
+
+    .file-upload-container > .file-display-block.block-wid-md-75 {
+        width: 65%;
+    }
+
+    .file-upload-container > .file-display-block.block-wid-md-80 {
+        width: 80%;
+    }
+
+    .file-upload-container > .file-display-block.block-wid-md-85 {
+        width: 85%;
+    }
+
+    .file-upload-container > .file-display-block.block-wid-md-90 {
+        width: 90%;
+    }
+
+    .file-upload-container > .file-display-block.block-wid-md-95 {
+        width: 95%;
+    }
+
+    .file-upload-container > .file-display-block.block-wid-md-100 {
+        width: 100%;
+    }
+}
+
+@media (max-width: 1080px){
+    .file-upload-container > .file-display-block.block-wid-sm-5 {
+        width: 5%;
+    }
+
+    .file-upload-container > .file-display-block.block-wid-sm-10 {
+        width: 10%;
+    }
+
+    .file-upload-container > .file-display-block.block-wid-sm-15 {
+        width: 15%;
+    }
+
+    .file-upload-container > .file-display-block.block-wid-sm-20 {
+        width: 20%;
+    }
+
+    .file-upload-container > .file-display-block.block-wid-sm-25 {
+        width: 25%;
+    }
+
+    .file-upload-container > .file-display-block.block-wid-sm-30 {
+        width: 30%;
+    }
+
+    .file-upload-container > .file-display-block.block-wid-sm-35 {
+        width: 35%;
+    }
+
+    .file-upload-container > .file-display-block.block-wid-sm-40 {
+        width: 40%;
+    }
+
+    .file-upload-container > .file-display-block.block-wid-sm-45 {
+        width: 45%;
+    }
+
+    .file-upload-container > .file-display-block.block-wid-sm-50 {
+        width: 50%;
+    }
+
+    .file-upload-container > .file-display-block.block-wid-sm-55 {
+        width: 55%;
+    }
+
+    .file-upload-container > .file-display-block.block-wid-sm-60 {
+        width: 60%;
+    }
+
+    .file-upload-container > .file-display-block.block-wid-sm-65 {
+        width: 65%;
+    }
+
+    .file-upload-container > .file-display-block.block-wid-sm-70 {
+        width: 70%;
+    }
+
+    .file-upload-container > .file-display-block.block-wid-sm-75 {
+        width: 65%;
+    }
+
+    .file-upload-container > .file-display-block.block-wid-sm-80 {
+        width: 80%;
+    }
+
+    .file-upload-container > .file-display-block.block-wid-sm-85 {
+        width: 85%;
+    }
+
+    .file-upload-container > .file-display-block.block-wid-sm-90 {
+        width: 90%;
+    }
+
+    .file-upload-container > .file-display-block.block-wid-sm-95 {
+        width: 95%;
+    }
+
+    .file-upload-container > .file-display-block.block-wid-sm-100 {
+        width: 100%;
+    }
+}
+
+.file-upload-container > .file-display-block.block-wid-5 {
+    width: 5%;
+}
+
+.file-upload-container > .file-display-block.block-wid-10 {
+    width: 10%;
+}
+
+.file-upload-container > .file-display-block.block-wid-15 {
+    width: 15%;
+}
+
+.file-upload-container > .file-display-block.block-wid-20 {
+    width: 20%;
+}
+
+.file-upload-container > .file-display-block.block-wid-25 {
+    width: 25%;
+}
+
+.file-upload-container > .file-display-block.block-wid-30 {
+    width: 30%;
+}
+
+.file-upload-container > .file-display-block.block-wid-35 {
+    width: 35%;
+}
+
+.file-upload-container > .file-display-block.block-wid-40 {
+    width: 40%;
+}
+
+.file-upload-container > .file-display-block.block-wid-45 {
+    width: 45%;
+}
+
+.file-upload-container > .file-display-block.block-wid-50 {
+    width: 50%;
+}
+
+.file-upload-container > .file-display-block.block-wid-55 {
+    width: 55%;
+}
+
+.file-upload-container > .file-display-block.block-wid-60 {
+    width: 60%;
+}
+
+.file-upload-container > .file-display-block.block-wid-65 {
+    width: 65%;
+}
+
+.file-upload-container > .file-display-block.block-wid-70 {
+    width: 70%;
+}
+
+.file-upload-container > .file-display-block.block-wid-75 {
+    width: 65%;
+}
+
+.file-upload-container > .file-display-block.block-wid-80 {
+    width: 80%;
+}
+
+.file-upload-container > .file-display-block.block-wid-85 {
+    width: 85%;
+}
+
+.file-upload-container > .file-display-block.block-wid-90 {
+    width: 90%;
+}
+
+.file-upload-container > .file-display-block.block-wid-95 {
+    width: 95%;
+}
+
+.file-upload-container > .file-display-block.block-wid-100 {
+    width: 100%;
+}

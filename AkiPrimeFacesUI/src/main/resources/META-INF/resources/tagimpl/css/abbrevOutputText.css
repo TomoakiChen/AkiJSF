@@ -1,0 +1,21 @@
+@charset "UTF-8";
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 2024年5月22日, 下午4:21:34
+    Author     : tomoaki
+*/
+
+.like-link {
+    cursor: pointer;
+}
+
+.like-link:hover {
+    color: #00afec;
+}
+
+.like-link:active {
+    border: 2px dashed gray;
+}

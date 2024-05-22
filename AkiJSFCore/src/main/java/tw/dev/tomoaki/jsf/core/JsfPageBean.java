@@ -5,7 +5,6 @@
  */
 package tw.dev.tomoaki.jsf.core;
 
-import tw.dev.tomoaki.jsf.core.helper.JSFMessageHelper;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
@@ -24,6 +23,7 @@ import tw.dev.tomoaki.util.web.PageInfo;
 import tw.dev.tomoaki.util.web.PageStack;
 import tw.dev.tomoaki.util.web.UrlProvider;
 import tw.dev.tomoaki.util.web.WebHelper;
+import tw.dev.tomoaki.jsf.core.helper.JSFMessageHelper;
 
 /**
  *

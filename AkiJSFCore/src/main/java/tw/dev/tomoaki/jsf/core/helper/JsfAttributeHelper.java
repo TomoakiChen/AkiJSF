@@ -26,6 +26,31 @@ public class JSFAttributeHelper {
 
     public static Object getLocalComponentAttrValue(String attrName) {
         FacesContext context = FacesContext.getCurrentInstance();
+        return JSFAttributeHelper.getLocalComponentAttrValue(context, attrName);
+    }
+
+    public static Object getLocalComponentAttrValue(FacesContext context, String attrName) {
+        UIComponent component = UIComponent.getCurrentComponent(context);
+        if (context == null) {
+            throw new IllegalArgumentException(String.format("Cannot found current component in context= %s", context));
+        }
+
+        var attrMap = component.getAttributes();
+        return (attrMap != null) ? attrMap.get(attrName) : null;
+    }
+
+    public static Object getGlobalAttrValue(String attrName) {
+        FacesContext context = FacesContext.getCurrentInstance();
+        return JSFAttributeHelper.getGlobalAttrValue(context, attrName);
+    }
+
+    public static Object getGlobalAttrValue(FacesContext context, String attrName) {     
+        var attrMap = context.getAttributes();
+        return (attrMap != null) ? attrMap.get(attrName) : null;
+    }
+
+    /*public static Object getLocalComponentAttrValue(String attrName) {
+        FacesContext context = FacesContext.getCurrentInstance();
 //        UIComponent component = UIComponent.getCurrentComponent(context);
 //        return component.getAttributes().get(attrName);
         return JSFAttributeHelper.getGlobalAttrValue(context, attrName);
@@ -43,5 +68,5 @@ public class JSFAttributeHelper {
 
     public static Object getGlobalAttrValue(FacesContext context, String attrName) {
         return context.getAttributes().get(attrName);
-    }
+    }*/
 }

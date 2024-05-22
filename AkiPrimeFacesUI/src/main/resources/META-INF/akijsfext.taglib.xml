@@ -39,6 +39,7 @@
             <description></description>            
         </attribute>
     </tag>
+    
     <tag>
         <tag-name>tagChipDateTime</tag-name>
         <source>tagimpl/tagchipDateTime.xhtml</source>
@@ -72,6 +73,7 @@
             <description>時間區間</description>            
         </attribute>                
     </tag>    
+    
     <tag>
         <tag-name>dateTimePicker</tag-name>
         <!--<source>tagimpl/tarruda-datetimepicker.xhtml</source>-->
@@ -243,5 +245,37 @@
     <tag>
         <tag-name>abbrevOutputText</tag-name>
         <source>tagimpl/abbrevOutputText.xhtml</source>
+        <attribute>
+            <name>value</name>
+            <description>要顯示的文字</description>
+            <type>java.lang.String</type>
+            <required>true</required>
+        </attribute>
+        <attribute>
+            <name>style</name>
+            <description>CSS Style</description>
+            <type>java.lang.String</type>            
+        </attribute>                        
+
+        <attribute>
+            <name>styleClass</name>
+            <description>CSS Class</description>
+            <type>java.lang.String</type>            
+        </attribute>                        
+        <attribute>
+            <name>shortnerPre</name>
+            <description>顯示文字的前半段保留多少字</description>
+            <type>java.lang.Integer</type>
+        </attribute>
+        <attribute>
+            <name>shortnerSuf</name>
+            <description>顯示文字的後半段保留多少字</description>
+            <type>java.lang.Integer</type>
+        </attribute>
+        <attribute>
+            <name>shortnerOmit</name>
+            <description>縮寫時，中間段用甚麼文字替換</description>
+            <type>java.lang.String</type>
+        </attribute>                        
     </tag>        
 </facelet-taglib>
