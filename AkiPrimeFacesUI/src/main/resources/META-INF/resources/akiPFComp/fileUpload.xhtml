@@ -38,7 +38,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/xhtml.xhtml to edit this te
     <composite:implementation>        
         <h:outputStylesheet library="akiPFComp" name="fileUpload.css"/>
 
-        <p:outputPanel id="fileUploadContainer" styleClass="file-upload-container flex-eq-height">
+        <p:outputPanel id="#{cc.id}-fileUploadContainer" styleClass="file-upload-container flex-eq-height">
 
             <p:outputPanel id="fileInputBlock" styleClass="file-input-block block-wid-20">
                 <p:fileUpload id="fileUploadInput" mode="simple" auto="#{true}" skinSimple="#{true}" label="#{cc.attrs.buttonLabel}" chooseIcon="#{cc.attrs.buttonIcon}"

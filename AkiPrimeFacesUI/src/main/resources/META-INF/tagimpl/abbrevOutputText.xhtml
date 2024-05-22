@@ -1,20 +1,43 @@
 <?xml version='1.0' encoding='UTF-8' ?> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:p="http://primefaces.org/ui"
-                xmlns:h="http://java.sun.com/jsf/html">  
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+              xmlns:ui="http://java.sun.com/jsf/facelets"
+              xmlns:f="http://java.sun.com/jsf/core"
+              xmlns:p="http://primefaces.org/ui"
+              xmlns:h="http://java.sun.com/jsf/html"
+              xmlns:jsf="http://xmlns.jcp.org/jsf">  
 
-    <p:tooltip for="@next" position="bottom">
-        <h:outputText value="#{value}"/>
-    </p:tooltip>
+    <h:outputStylesheet library="tagimpl" name="/css/aki-pf-ui-common.css"/>
 
-    <!--id="abbrevOutpuText"-->
-    <h:outputText  value="#{value}" rendered="#{empty rendered ? true : rendered}" converter="tw.dev.tomoaki.util.jsf.JsfConverter4StringShortner"
-                   styleClass="like-link#{empty styleClass ? '' :  ' '.concat(styleClass)}" style="#{style}">     
+    <ui:fragment rendered="#{false}">
+        <!-- 觸發不了「下面的 outputText」 打開 tooltip
+        <p:tooltip for="@next" position="bottom">
+            <h:outputText value="#{value}"/>
+        </p:tooltip>
+        -->
+    </ui:fragment>
+
+    <ui:fragment rendered="#{false}">
+        <!--<span jsf:id="#{empty id ? component.clientId : id}"></span>-->
+
+        <!--<p:outputPanel id="#{empty id ? component.clientId : id}">-->
+    </ui:fragment>
+
+    <h:outputText id="#{component.clientId}" value="#{value}" rendered="#{empty rendered ? true : rendered}" 
+                  converter="tw.dev.tomoaki.util.jsf.JsfConverter4StringShortner"
+                  styleClass="like-link#{empty styleClass ? '' :  ' '.concat(styleClass)}" style="#{style}">     
         <f:attribute name="tw.dev.tomoaki.util.jsf.JsfConverter4StringShortner.PrefixLength" value="#{empty shortnerPre ? '14' : shortnerPre}"/>
         <f:attribute name="tw.dev.tomoaki.util.jsf.JsfConverter4StringShortner.SuffixLength" value="#{empty shortnerSuf ? '17' : shortnerSuf}"/>            
         <f:attribute name="tw.dev.tomoaki.util.jsf.JsfConverter4StringShortner.OmitSymbol" value="#{empty shortnerOmit ? '....' : shortnerOmit}"/>         
     </h:outputText>
-</ui:composition>
+
+    <p:tooltip for="#{component.clientId}" position="bottom">
+        <h:outputText value="#{value}"/>
+    </p:tooltip>
+</ui:component>
+
+
+<!--
+從 composition 改成 component ......?
+之後嘗試 akiPFComp 包(ui:include) ui:component 寫成的東西看看
+-->

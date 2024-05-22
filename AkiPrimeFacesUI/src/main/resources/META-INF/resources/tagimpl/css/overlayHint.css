@@ -1,0 +1,14 @@
+@charset "UTF-8";
+
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 2024年5月22日, 下午4:31:54
+    Author     : tomoaki
+*/
+.detail-title {
+    font-weight: bold;
+    margin-bottom: 4px;
+}

@@ -5,49 +5,22 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:h="http://java.sun.com/jsf/html">
-    <style>
-        .like-link {
-            cursor: pointer;
-        }
-
-        .like-link:hover {
-            color: #00afec;
-        }
-
-        .like-link:active {
-            border: 2px dashed gray;
-        }
-
-        .detail-title {
-            font-weight: bold;
-            margin-bottom: 4px;
-        }
-    </style>    
-    <ui:remove>
-        <!--
-        f:convertDateTime rendered false 沒有用，但因為他不會影響非Date類的顯示，所以就不固執要付上去了
-        -->
-    </ui:remove>
-    <h:outputText id="abbrevOutpuText" value="#{summary}" converter="tw.dev.tomoaki.util.jsf.JsfConverter4StringShortner"
-                  styleClass="like-link#{empty styleClass ? '' :  ' '.concat(styleClass)}">     
-        <f:attribute name="tw.dev.tomoaki.util.jsf.JsfConverter4StringShortner.PrefixLength" value="#{empty shortnerPre ? '14' : shortnerPre}"/>
-        <f:attribute name="tw.dev.tomoaki.util.jsf.JsfConverter4StringShortner.SuffixLength" value="#{empty shortnerSuf ? '17' : shortnerSuf}"/>            
-        <f:attribute name="tw.dev.tomoaki.util.jsf.JsfConverter4StringShortner.OmitSymbol" value="#{empty shortnerOmit ? '....' : shortnerOmit}"/>         
-    </h:outputText>
-
-    <ui:remove>
-        <p:overlayPanel for="abbrevOutpuText" dynamic="true" style="width:600px">
-            <p:outputPanel>
-                <h:outputText value="錯誤報告：" styleClass="detail-title"/> 
-            </p:outputPanel>
-            <h:outputText value="#{empty detail ? summary : detail}" />
-        </p:overlayPanel>
-    </ui:remove>
-
-    <p:overlayPanel for="abbrevOutpuText" dynamic="true" style="width:600px"> 
+    
+    <!-- 關鍵好像在 name 是打全路徑，還是把部分打在 libarary --> 
+    <h:outputStylesheet library="tagimpl" name="/css/aki-pf-ui-common.css"/> 
+    <h:outputStylesheet name="/tagimpl/css/aki-pf-ui-common.css"/> 
+    
+    <p:overlayPanel for="@next" dynamic="true" style="width:600px"> 
         <h:outputText value="#{detailTitle}" styleClass="detail-title#{empty detailTitleStyleClass ? '' :  ' '.concat(detailTitleStyleClass)}" 
                       style="#{empty detailTitleStyle ? '' : detailTitleStyle}"/> 
         <h:outputText value="#{empty detail ? summary : detail}" converter="tw.dev.tomoaki.util.jsf.converter.OutputTextLineBreakConverter" escape="false"
                       styleClass="#{empty detailStyleClass ? '' : detailStyleClass}" style="#{empty detailStyle ? '' : detailStyle}"/>            
     </p:overlayPanel>    
+    
+    <h:outputText id="abbrevOutpuText" value="#{summary}" converter="tw.dev.tomoaki.util.jsf.JsfConverter4StringShortner"
+                  styleClass="like-link#{empty styleClass ? '' :  ' '.concat(styleClass)}">     
+        <f:attribute name="tw.dev.tomoaki.util.jsf.JsfConverter4StringShortner.PrefixLength" value="#{empty shortnerPre ? '14' : shortnerPre}"/>
+        <f:attribute name="tw.dev.tomoaki.util.jsf.JsfConverter4StringShortner.SuffixLength" value="#{empty shortnerSuf ? '17' : shortnerSuf}"/>            
+        <f:attribute name="tw.dev.tomoaki.util.jsf.JsfConverter4StringShortner.OmitSymbol" value="#{empty shortnerOmit ? '....' : shortnerOmit}"/>         
+    </h:outputText>  
 </ui:composition>
