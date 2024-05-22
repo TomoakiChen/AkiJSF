@@ -5,11 +5,6 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:h="http://java.sun.com/jsf/html">  
-    <ui:remove>
-        <p:overlayPanel for="abbrevOutpuText" dynamic="true" style="width:600px">
-            <h:outputText value="#{value}"/>
-        </p:overlayPanel>    
-    </ui:remove>
 
     <p:tooltip for="@next" position="bottom">
         <h:outputText value="#{value}"/>

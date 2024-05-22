@@ -44,7 +44,7 @@
         </p:overlayPanel>
     </ui:remove>
 
-    <p:overlayPanel for="abbrevOutpuText" dynamic="true" style="width:600px">
+    <p:overlayPanel for="abbrevOutpuText" dynamic="true" style="width:600px"> 
         <h:outputText value="#{detailTitle}" styleClass="detail-title#{empty detailTitleStyleClass ? '' :  ' '.concat(detailTitleStyleClass)}" 
                       style="#{empty detailTitleStyle ? '' : detailTitleStyle}"/> 
         <h:outputText value="#{empty detail ? summary : detail}" converter="tw.dev.tomoaki.util.jsf.converter.OutputTextLineBreakConverter" escape="false"
