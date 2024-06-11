@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/xhtml.xhtml to edit this template
+-->
+<!DOCTYPE html>
+<html xmlns = "http://www.w3.org/1999/xhtml"   
+      xmlns:h = "http://java.sun.com/jsf/html"
+      xmlns:f = "http://java.sun.com/jsf/core"
+      xmlns:composite = "http://java.sun.com/jsf/composite"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:aje="http://akijsfext.com/facelets">
+
+    <composite:interface>        
+        <composite:attribute name="targetDisplayValue" shortDescription="訊息"/>
+        <composite:attribute name="targetRealValue" shortDescription="擴展訊息"/>
+        
+        <composite:attribute name="triggerDisplayValue"/>
+    </composite:interface>
+
+    <composite:implementation>        
+        <h:outputScript library="akiPFComp" name="aki-clipboard.js"/>
+
+        <p:outputPanel id="#{cc.id}-clipboardContainer">            
+            <p:outputPanel>
+                
+            </p:outputPanel>
+        </p:outputPanel>
+    </composite:implementation>
+</html>    

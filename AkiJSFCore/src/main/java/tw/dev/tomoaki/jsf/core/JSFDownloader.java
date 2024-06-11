@@ -67,7 +67,7 @@ public class JSFDownloader {
         if (mimeType == null) {
             mimeType = "application/octet-stream";
         }
-        facesContext.responseComplete();
+        facesContext.responseComplete(); // https://stackoverflow.com/questions/9784924/jsf-2-0-execute-javascript-on-facescontext-responsecomplete
         externalContext.responseReset();
         externalContext.setResponseContentType(mimeType);
         externalContext.setResponseHeader("Content-Disposition", "inline; filename=\"" + downloadingFileName + "\"");
@@ -121,7 +121,7 @@ public class JSFDownloader {
         if (mimeType == null) {
             mimeType = "application/octet-stream";
         }
-        facesContext.responseComplete();
+        facesContext.responseComplete(); // https://stackoverflow.com/questions/9784924/jsf-2-0-execute-javascript-on-facescontext-responsecomplete
         externalContext.responseReset();
         externalContext.setResponseContentType(mimeType);
         externalContext.setResponseHeader("Content-Disposition", "attachment; filename=\"" + downloadingFileName + "\"");
