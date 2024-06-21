@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/xhtml.xhtml to edit this template
+-->
+<!DOCTYPE html>
+<html xmlns = "http://www.w3.org/1999/xhtml"   
+      xmlns:h = "http://java.sun.com/jsf/html"
+      xmlns:f = "http://java.sun.com/jsf/core"
+      xmlns:composite = "http://java.sun.com/jsf/composite"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:aje="http://akijsfext.com/facelets">
+
+    <composite:interface>        
+        <p:importEnum var="TextAreaTypeEnums" type="tw.dev.tomoaki.jsf.pf.ui.enumoption.TextInputType"/>
+        <!--  <h:outputStylesheet library="akiPFComp" name="switchableTextInput.css"/>        -->
+
+        <composite:attribute name="inputType" type="tw.dev.tomoaki.jsf.pf.ui.enumoption.TextInputType" default="#{TextAreaTypeEnums.PLAIN_TEXT_AREA}" required="#{true}"/>
+        <composite:attribute name="value" type="java.lang.String" required="#{true}"/>
+        <composite:attribute name="required" type="java.lang.Boolean" default="#{false}"/>
+        
+    </composite:interface>
+
+    <composite:implementation>
+        <p:importEnum var="TextAreaTypeEnums" type="tw.dev.tomoaki.jsf.pf.ui.enumoption.TextInputType"/>        
+        <h:outputStylesheet library="akiPFComp" name="switchableTextInput.css"/>                
+
+        <p:outputPanel id="#{cc.id}-switchableTextInputContainer" styleClass="switchableTextInputContainer">
+
+            <p:outputPanel id="typeSwitchingBlock" styleClass="typeSwitchingBlock">
+                <p:selectOneButton id="typeSwitchingButton" value="#{cc.attrs.inputType}">
+                    <p:ajax event="change" process="@this textRealInputBlock" update="textRealInputBlock"/>
+                    <f:selectItems var="textAreaType" value="#{TextAreaTypeEnums.ALL_VALUES}"
+                                   itemLabel="#{textAreaType.description}" itemValue="#{textAreaType}"/>
+                </p:selectOneButton>
+            </p:outputPanel>
+
+            <div jsf:id="textRealInputBlock" class="textRealInputBlock">
+                <p:outputPanel id="plainTextAreaInputBlock" rendered="#{cc.attrs.inputType eq TextAreaTypeEnums.PLAIN_TEXT_AREA}">
+                    <p:inputTextarea value="#{cc.attrs.value}" required="#{cc.attrs.required}" styleClass="input-widget"/>
+                </p:outputPanel>
+
+                <p:outputPanel id="PFTextEditorBlock" rendered="#{cc.attrs.inputType eq TextAreaTypeEnums.TEXT_EDITOR}">
+                    <!-- PF 現在(2024/06/20) 使用 Quill 編輯器-->
+                    <p:textEditor value="#{cc.attrs.value}" required="#{cc.attrs.required}">
+                        <f:facet name="toolbar">                                                        
+                            <composite:renderFacet name="PFTextEditor"/> 
+                            <!-- 這裡不是用 insertFacet -->
+                        </f:facet>
+                    </p:textEditor>                                          
+                </p:outputPanel>            
+            </div>
+
+            <composite:renderFacet name="footer"/>
+        </p:outputPanel>
+    </composite:implementation>
+</html>    
