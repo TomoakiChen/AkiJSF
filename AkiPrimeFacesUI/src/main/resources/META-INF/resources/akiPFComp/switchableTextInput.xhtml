@@ -39,11 +39,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/xhtml.xhtml to edit this te
             </p:outputPanel>
 
             <div jsf:id="textRealInputBlock" class="textRealInputBlock">
-                <p:outputPanel id="plainTextAreaInputBlock" rendered="#{cc.attrs.inputType eq TextAreaTypeEnums.PLAIN_TEXT_AREA}">
+                <h:outputText value="#{cc.attrs.value}"/>
+                <f:subview id="plainTextAreaInputBlock" rendered="#{cc.attrs.inputType eq TextAreaTypeEnums.PLAIN_TEXT_AREA}">
                     <p:inputTextarea value="#{cc.attrs.value}" required="#{cc.attrs.required}" styleClass="input-widget"/>
-                </p:outputPanel>
+                </f:subview>
 
-                <p:outputPanel id="PFTextEditorBlock" rendered="#{cc.attrs.inputType eq TextAreaTypeEnums.TEXT_EDITOR}">
+                <f:subview id="PFTextEditorBlock" rendered="#{cc.attrs.inputType eq TextAreaTypeEnums.TEXT_EDITOR}">
                     <!-- PF 現在(2024/06/20) 使用 Quill 編輯器-->
                     <p:textEditor value="#{cc.attrs.value}" required="#{cc.attrs.required}">
                         <f:facet name="toolbar">                                                        
@@ -51,7 +52,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/xhtml.xhtml to edit this te
                             <!-- 這裡不是用 insertFacet -->
                         </f:facet>
                     </p:textEditor>                                          
-                </p:outputPanel>            
+                </f:subview>            
             </div>
 
             <composite:renderFacet name="footer"/>

@@ -1,0 +1,36 @@
+@charset "UTF-8";
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 2024年7月2日, 上午11:37:02
+    Author     : tomoaki
+*/
+/*
+從 tagchip.xhtml copy 出來
+*/
+.tag-chip {
+    background:  #F1FFFF;
+    border: 1px solid gray;
+    padding-left: 3px;
+    padding-right: 3px;
+    padding-top:1px;
+    padding-bottom: 1px;
+    border-radius: 4px;
+    margin-right:3px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.tag-chip > .tag-chip-label {
+    font-weight: bold;
+}
+
+.tag-chip > .tag-chip-summary {
+
+}
+
+.tag-chip > .tag-chip-detail {
+
+}
