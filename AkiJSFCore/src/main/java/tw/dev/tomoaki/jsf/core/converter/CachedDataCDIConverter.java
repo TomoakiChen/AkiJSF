@@ -59,7 +59,8 @@ public abstract class CachedDataCDIConverter<DATA, DATA_CACHE extends CachedData
             return null;
         }
         
-        DATA data = this.tryObtainDataFromDbCache(strDataIndexAttr); //OK
+        // System.out.println(String.format("getAsObject(): cachedDbDataMap= %s, strDataIndexAttr= %s", cachedDbDataMap, strDataIndexAttr));        
+        DATA data = (cachedDbDataMap != null) ? this.tryObtainDataFromDbCache(strDataIndexAttr) : null;
         data = this.tryObtainDataFromDb(data, strDataIndexAttr);
         return data;
     }

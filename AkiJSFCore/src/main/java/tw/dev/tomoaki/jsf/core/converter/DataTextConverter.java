@@ -38,3 +38,14 @@ public abstract class DataTextConverter<T> implements Converter<T>, Serializable
 
     protected abstract String obtainDataText(T data);    
 }
+
+/* AcademicResearchMgmt 裡面寫的
+public abstract class DataTextConverter<T> implements Converter<T> {
+
+    @Override
+    public T getAsObject(FacesContext context, UIComponent component, String string) {
+        throw new UnsupportedOperationException("Not supported."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+}
+
+*/

@@ -21,9 +21,10 @@ import tw.dev.tomoaki.jsf.core.helper.JSFHttpHelper;
 //import tw.dev.tomoaki.util.collection.UrlCreator;
 import tw.dev.tomoaki.util.web.PageInfo;
 import tw.dev.tomoaki.util.web.PageStack;
-import tw.dev.tomoaki.util.web.UrlProvider;
+import tw.dev.tomoaki.util.web.AppUrlProvider;
 import tw.dev.tomoaki.util.web.WebHelper;
 import tw.dev.tomoaki.jsf.core.helper.JSFMessageHelper;
+import tw.dev.tomoaki.jsf.core.helper.JSFOutcomeAppender;
 
 /**
  *
@@ -36,20 +37,18 @@ public class JSFPageBean {
     /**
      *  先撇開 session。request、response 存這裡很怪吧，因為每次 request 不是應該都要更新
      */
+    protected Boolean printLog;    
     
-//    protected HttpServletRequest request;
-//    protected HttpServletResponse response;
-//    protected HttpSession session;
-
-//    protected UrlCreator urlCreator;
     protected String message;
     protected Queue<String> msgBuffer;
-    protected String nextPage;
 
-    protected String systemRootPath;
-    protected UrlProvider urlProvider;
-    protected Boolean printLog;
+    protected String systemRootPath;   
+    protected AppUrlProvider urlProvider;    
 
+    protected String nextPage;    
+    protected JSFOutcomeAppender outcomeAppender;
+
+    
     public JSFPageBean() {
         msgBuffer = new LinkedList();
         this.doInitJsfPageBean();
@@ -64,7 +63,7 @@ public class JSFPageBean {
 
     protected void doSetupUrlProvider() {
         HttpServletRequest request = this.getRequest();
-        urlProvider = UrlProvider.Factory.create(request);
+        urlProvider = AppUrlProvider.create(request);
     }
 
     protected void showErrorMessage(String message) {
@@ -100,16 +99,22 @@ public class JSFPageBean {
         return systemRootPath;
     }
 
-    /**
-     * 會轉頁
-     */
     public String redirectToNextPage() {
+        return this.redirectToNextPage(false);
+    }
+    
+    /**
+     * 進行實際轉頁到 nextPage 指向的頁面
+     * @param autoAppendQueryParam 是否(透過 JSF 的 includeViewParams) 在轉頁時上帶上 Query Param
+     */
+    public String redirectToNextPage(Boolean autoAppendQueryParam) {
         if(printLog) {
             String msgFmt = "[%s] redirectToNextPage(): nextPage= %s";
             System.out.println(String.format(msgFmt, this.getClass().getSimpleName(), nextPage));
         }
         if (nextPage != null) {
-            return nextPage + "?faces-redirect=true";
+            String strNavigationParams = autoAppendQueryParam ? "?faces-redirect=true&includeViewParams=true" : "?faces-redirect=true";
+            return nextPage + strNavigationParams; // return nextPage + "?faces-redirect=true";
         } else {
             return null;
         }

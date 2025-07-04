@@ -38,3 +38,20 @@ public class StringTrimmer implements Converter {
     }
 
 }
+/*
+public class StringTrimmingConverter implements Converter<String> {
+
+    //前端值轉後端值(?)
+    @Override
+    public String getAsObject(FacesContext context, UIComponent component, String string) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody    
+    }
+
+    @Override
+    public String getAsString(FacesContext context, UIComponent component, String t) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
+}
+
+*/
