@@ -24,15 +24,20 @@
         
         <c:set var="componentId" value="abbrevOutputText-#{component.clientId.hashCode()}"/>        
         <h:outputText id="#{componentId}" value="#{value}" converter="tw.dev.tomoaki.util.jsf.JsfConverter4StringShortner"
-                      styleClass="like-link#{empty styleClass ? '' :  ' '.concat(styleClass)}" style="#{style}">     
+                      styleClass="like-link#{empty styleClass ? '' :  ' '.concat(styleClass)}" style="#{not empty style ? style : ''}"
+                      escape="#{not empty escape ? escape : true}">     
             <f:attribute name="tw.dev.tomoaki.util.jsf.JsfConverter4StringShortner.PrefixLength" value="#{empty shortnerPre ? '14' : shortnerPre}"/>
             <f:attribute name="tw.dev.tomoaki.util.jsf.JsfConverter4StringShortner.SuffixLength" value="#{empty shortnerSuf ? '17' : shortnerSuf}"/>            
             <f:attribute name="tw.dev.tomoaki.util.jsf.JsfConverter4StringShortner.OmitSymbol" value="#{empty shortnerOmit ? '....' : shortnerOmit}"/>
         </h:outputText>
-
-        <p:tooltip for="@previous" position="bottom">
-            <h:outputText value="#{value}"/>
-        </p:tooltip>  
+        
+        <p:overlayPanel for="@previous" showCloseIcon="#{true}">
+            <h:outputText value="#{value}" escape="#{not empty escape ? escape : true}"/>           
+        </p:overlayPanel>
+        
+        <p:tooltip for="@previous" position="bottom" rendered="#{false}">
+            <h:outputText value="#{value}" escape="#{not empty escape ? escape : true}"/>
+        </p:tooltip>
         
         <ui:fragment rendered="#{false}">
             <!--

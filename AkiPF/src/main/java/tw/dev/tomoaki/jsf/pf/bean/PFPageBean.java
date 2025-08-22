@@ -24,7 +24,7 @@ public class PFPageBean extends JSFPageBean {
     @Override
     protected void doInitJsfPageBean() {
         super.doInitJsfPageBean(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
-        this.openingInnerWindowMap = DataExistMap.Factory.createOrdered();
+        this.openingInnerWindowMap = DataExistMap.createOrdered();
         this.restingInnerWindow = new ConcurrentLinkedQueue();//LinkedList();
     }
 

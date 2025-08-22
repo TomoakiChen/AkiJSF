@@ -24,6 +24,18 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     display: flex;
 }
 
+/*.file-upload-container > .file-input-block > .file-upload:hover {
+    cursor: pointer;
+}*/
+
+.file-upload-container > .file-input-block > .file-upload > .ui-button:hover {
+    cursor: pointer;
+}
+
+.file-upload-container > .file-input-block > .file-upload.ui-fileupload-simple > .ui-button input[type=file] {
+    height: 100%;
+}
+
 .file-upload-container > .file-display-block {
     display: flex; /*這樣就可使底下的等高(不太確定到底) */
     border: 1px groove darkgray;

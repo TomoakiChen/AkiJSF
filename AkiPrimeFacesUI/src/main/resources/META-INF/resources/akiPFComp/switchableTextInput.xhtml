@@ -16,46 +16,58 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/xhtml.xhtml to edit this te
 
     <composite:interface>        
         <p:importEnum var="TextAreaTypeEnums" type="tw.dev.tomoaki.jsf.pf.ui.enumoption.TextInputType"/>
-        <!--  <h:outputStylesheet library="akiPFComp" name="switchableTextInput.css"/>        -->
+        <!--  <h:outputStylesheet library="akiPFComp" name="switchableTextInput.css"/> 這行無法用在這裡 -->
 
         <composite:attribute name="inputType" type="tw.dev.tomoaki.jsf.pf.ui.enumoption.TextInputType" default="#{TextAreaTypeEnums.PLAIN_TEXT_AREA}" required="#{true}"/>
         <composite:attribute name="value" type="java.lang.String" required="#{true}"/>
         <composite:attribute name="required" type="java.lang.Boolean" default="#{false}"/>
+        <composite:attribute name="requiredMessage" type="java.lang.String"/>
         
+
+        <composite:attribute name="areaTitle" type="java.lang.String"/>
+        <composite:attribute name="areaRows" type="java.lang.Integer" default="#{3}"/>
+
+        <composite:attribute name="editorTitle" type="java.lang.String"/>
+        <composite:attribute name="edtiorHeight" type="java.lang.String"/>
     </composite:interface>
 
     <composite:implementation>
         <p:importEnum var="TextAreaTypeEnums" type="tw.dev.tomoaki.jsf.pf.ui.enumoption.TextInputType"/>        
-        <h:outputStylesheet library="akiPFComp" name="switchableTextInput.css"/>                
+        <h:outputStylesheet library="localPFComp" name="switchableTextInput.css"/>                
 
         <p:outputPanel id="#{cc.id}-switchableTextInputContainer" styleClass="switchableTextInputContainer">
 
             <p:outputPanel id="typeSwitchingBlock" styleClass="typeSwitchingBlock">
                 <p:selectOneButton id="typeSwitchingButton" value="#{cc.attrs.inputType}">
-                    <p:ajax event="change" process="@this textRealInputBlock" update="textRealInputBlock"/>
+                    <p:ajax event="change" process="@this" update="textRealInputBlock"/> 
+                    <!--@this textRealInputBlock、@form 都沒法觸發 --> 
                     <f:selectItems var="textAreaType" value="#{TextAreaTypeEnums.ALL_VALUES}"
                                    itemLabel="#{textAreaType.description}" itemValue="#{textAreaType}"/>
                 </p:selectOneButton>
             </p:outputPanel>
 
             <div jsf:id="textRealInputBlock" class="textRealInputBlock">
-                <h:outputText value="#{cc.attrs.value}"/>
-                <f:subview id="plainTextAreaInputBlock" rendered="#{cc.attrs.inputType eq TextAreaTypeEnums.PLAIN_TEXT_AREA}">
-                    <p:inputTextarea value="#{cc.attrs.value}" required="#{cc.attrs.required}" styleClass="input-widget"/>
-                </f:subview>
+                <p:outputPanel id="plainTextAreaInputBlock" rendered="#{cc.attrs.inputType eq TextAreaTypeEnums.PLAIN_TEXT_AREA}">
+                    <p:inputTextarea value="#{cc.attrs.value}" required="#{cc.attrs.required}" requiredMessage="#{cc.attrs.requiredMessage}"
+                                     styleClass="input-widget" rows="#{cc.attrs.areaRows}">
+                        <p:ajax event="change"/>
+                    </p:inputTextarea>
+                </p:outputPanel>
 
-                <f:subview id="PFTextEditorBlock" rendered="#{cc.attrs.inputType eq TextAreaTypeEnums.TEXT_EDITOR}">
+                <p:outputPanel id="PFTextEditorBlock" rendered="#{cc.attrs.inputType eq TextAreaTypeEnums.TEXT_EDITOR}">
                     <!-- PF 現在(2024/06/20) 使用 Quill 編輯器-->
-                    <p:textEditor value="#{cc.attrs.value}" required="#{cc.attrs.required}">
+                    <p:textEditor value="#{cc.attrs.value}" required="#{cc.attrs.required}" requiredMessage="#{cc.attrs.requiredMessage}" 
+                                  height="#{cc.attrs.edtiorHeight}">
                         <f:facet name="toolbar">                                                        
-                            <composite:renderFacet name="PFTextEditor"/> 
+                            <composite:renderFacet name="editorToolBar"/> 
                             <!-- 這裡不是用 insertFacet -->
                         </f:facet>
+                        <p:ajax event="change"/>
                     </p:textEditor>                                          
-                </f:subview>            
+                </p:outputPanel>
             </div>
 
             <composite:renderFacet name="footer"/>
         </p:outputPanel>
     </composite:implementation>
-</html>    
+</html>

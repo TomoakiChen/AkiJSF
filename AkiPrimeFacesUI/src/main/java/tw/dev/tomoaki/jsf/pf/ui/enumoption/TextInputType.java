@@ -13,7 +13,7 @@ import tw.dev.tomoaki.enumoption.helper.EnumHelper;
  */
 public enum TextInputType implements CodedEnum {
 
-    PLAIN_TEXT_AREA("PlainTextArea", "純文字的 TextArea"),
+    PLAIN_TEXT_AREA("PlainTextArea", "Plain Textarea"/*"純文字的 TextArea"*/),
     TEXT_EDITOR("TextEditor", "Rich Text Editor");
 
     private String code;

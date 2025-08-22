@@ -17,8 +17,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/xhtml.xhtml to edit this te
     <composite:interface>        
         <composite:attribute name="buttonLabel" type="java.lang.String" default="Upload" shortDescription="上傳按鈕的顯示文字"/>
         <composite:attribute name="buttonIcon" type="java.lang.String" default="pi pi-upload" shortDescription="上傳按鈕的 Icon，可使用 Primefaces Icon 系列的"/>
+        <composite:attribute name="buttonTip" type="java.lang.String" default="Upload File" shortDescription="上傳按鈕的提示訊息"/>
         <composite:attribute name="buttonListener" method-signature="void uploadFileListener(org.primefaces.event.FileUploadEvent)" required="#{true}" shortDescription="負責處理檔案上傳的 (Bean) Method"/>
         <composite:attribute name="buttonStyleClass" type="java.lang.String"/>
+        <composite:attribute name="uploadingAttribute" shortDescription="進行上傳檔案時，欲傳送的相關參數"/>        
 
         <composite:attribute name="previewFile" type="org.primefaces.model.file.UploadedFile" shortDescription="供瀏覽的剛上傳檔案"/>        
         <composite:attribute name="previewFileLabel" type="java.lang.String" default="New" shortDescription="「預覽剛上傳的檔案」之欄位的標題"/>
@@ -28,23 +30,19 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/xhtml.xhtml to edit this te
 
         <composite:attribute name="recentFileLabel" type="java.lang.String" default="Recent" shortDescription="「之前上傳的檔案」的標題"/>
         <composite:attribute name="recentFileDisplayName" type="java.lang.String" shortDescription="「之前上傳的檔案」名稱"/>
-        <!--<composite:attribute name="recentFileURLProvider" method-signature="java.lang.String recentFileURLProvider" required="#{true}" shortDescription="取得之前上傳的檔案 URL 的 Method"/>-->
         <composite:attribute name="recentFileURL" type="java.lang.String" shortDescription="取得之前上傳的檔案 URL 的 Method"/>                
         <composite:attribute name="removeRecentFileListener" method-signature="void removeRecentFileListener" shortDescription="刪除之前上傳的檔案"/>
         <composite:attribute name="cancelRemoveRecentFileListener" method-signature="void cancelRecentFileListener" shortDescription="如做過「刪除之前上傳的檔案」的動作，可以用這個進行 restore"/>
-        <composite:attribute name="isRemovingRecentFile" default="#{false}" type="java.lang.Boolean"/>       
-
-        <composite:attribute name="uploadingAttribute" shortDescription="進行上傳檔案時，欲傳送的相關參數"/>
+        <composite:attribute name="isRemovingRecentFile" default="#{false}" type="java.lang.Boolean"/>
     </composite:interface>
 
     <composite:implementation>        
         <h:outputStylesheet library="akiPFComp" name="fileUpload.css"/>
 
         <p:outputPanel id="#{cc.id}-fileUploadContainer" styleClass="file-upload-container flex-eq-height">
-
             <p:outputPanel id="fileInputBlock" layout="block" styleClass="file-input-block block-wid-20">
                 <p:fileUpload id="fileUploadInput" mode="simple" auto="#{true}" skinSimple="#{true}" label="#{cc.attrs.buttonLabel}" chooseIcon="#{cc.attrs.buttonIcon}"
-                              listener="#{cc.attrs.buttonListener}" update="@parent:@next">
+                              listener="#{cc.attrs.buttonListener}" update="@parent:@next" styleClass="file-upload" title="#{cc.attrs.buttonTip}">
                     <f:attribute name="uploadingAttribute" value="#{cc.attrs.uploadingAttribute}"/>
                 </p:fileUpload>
             </p:outputPanel>
@@ -61,9 +59,18 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/xhtml.xhtml to edit this te
                 <p:commandLink rendered="#{not empty cc.attrs.previewFile and not empty cc.attrs.cancelUploadingFileListener}" styleClass="file-delete" title="Canel Uploading"
                                actionListener="#{cc.attrs.cancelUploadingFileListener}" process="@this" update="@parent">
                     <i class="pi pi-times"/>
-                    <p:confirm rendered="#{empty cc.attrs.cancelUploadingConfirmMessage}" header="Confirm" icon="pi pi-exclamation-triangle" message="Do you want to cancel uploading file '#{cc.attrs.previewFile.fileName}'?"/> 
-                    <p:confirm rendered="#{not empty cc.attrs.cancelUploadingConfirmMessage}" header="Confirm" icon="pi pi-exclamation-triangle" message="#{cc.attrs.cancelUploadingConfirmMessage}"/> 
-                    <!-- source="fileUploadConfirmDialog" -->
+                    <ui:fragment rendered="#{false}">
+                        <!--
+                        <p:confirm disabled="#{empty cc.attrs.cancelUploadingConfirmMessage}" header="Confirm" icon="pi pi-exclamation-triangle" 
+                                   message="Do you want to cancel uploading file '#{cc.attrs.previewFile.fileName}'?"/> 
+
+                        <p:confirm disabled="#{not empty cc.attrs.cancelUploadingConfirmMessage}" header="Confirm" icon="pi pi-exclamation-triangle" 
+                                   message="#{cc.attrs.cancelUploadingConfirmMessage}"/>
+                        -->
+                        <!-- source="fileUploadConfirmDialog" -->
+                    </ui:fragment>
+                    
+                    <p:confirm header="Confirm" icon="pi pi-exclamation-triangle" message="Do you want to cancel uploading file '#{cc.attrs.previewFile.fileName}'?"/> 
                 </p:commandLink>            
             </p:outputPanel>
 
@@ -71,7 +78,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/xhtml.xhtml to edit this te
                 <p:outputLabel value="#{cc.attrs.recentFileLabel}" styleClass="file-display-title flex-eq-height"/>
 
                 
-                <!--line-through-->
+                <!-- line-through -->
                 <p:link href="#{cc.attrs.recentFileURL}" target="_recentPaperFile" onclick="window.open('', '_recentPaperFile', 'width=600, height=800')"
                         rendered="#{not empty cc.attrs.recentFileDisplayName and not empty cc.attrs.recentFileURL}" styleClass="file-display-link">
                     <aje:abbrevOutputText value="#{cc.attrs.recentFileDisplayName}" shortnerPre="10" shortnerSuf="10" rendered="#{cc.attrs.isRemovingRecentFile}" style="text-decoration: line-through;"/>
@@ -89,14 +96,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/xhtml.xhtml to edit this te
                     <i class="pi pi-history"/>
                     <p:confirm header="Confirm" message="Do you want to restore removed file '#{cc.attrs.recentFileDisplayName}'?"/>
                 </p:commandLink>                  
-            </p:outputPanel>      
-
-            <ui:fragment rendered="#{false}">
-                <p:confirmDialog id="fileUploadConfirmDialog" showEffect="fade" hideEffect="fade" responsive="true" width="350">
-                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
-                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" />
-                </p:confirmDialog>
-            </ui:fragment>
+            </p:outputPanel>
         </p:outputPanel>
     </composite:implementation>
-</html>    
+</html> 

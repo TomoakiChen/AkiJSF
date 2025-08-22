@@ -8,10 +8,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     Author     : tomoaki
 */
 .switchableTextInputContainer {
-    
+
 }
 
 
 .switchableTextInputContainer .typeSwitchingBlock {
     margin-bottom: 8px;
+    display: flex;
+    /* justify-content: center; */
+    padding-left: 8px;
 }

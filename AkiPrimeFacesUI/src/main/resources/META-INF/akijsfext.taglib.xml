@@ -256,7 +256,6 @@
             <description>CSS Style</description>
             <type>java.lang.String</type>            
         </attribute>                        
-
         <attribute>
             <name>styleClass</name>
             <description>CSS Class</description>
@@ -276,6 +275,11 @@
             <name>shortnerOmit</name>
             <description>縮寫時，中間段用甚麼文字替換</description>
             <type>java.lang.String</type>
-        </attribute>                        
-    </tag>        
+        </attribute>
+        <attribute>
+            <name>escape</name>
+            <description>與 outputText escape相同，是否 escape html code</description>
+            <type>java.lang.Boolean</type>
+        </attribute>                
+    </tag>
 </facelet-taglib>

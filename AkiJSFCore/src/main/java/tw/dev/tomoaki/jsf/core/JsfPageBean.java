@@ -46,25 +46,29 @@ public class JSFPageBean {
     protected AppUrlProvider urlProvider;    
 
     protected String nextPage;    
-    protected JSFOutcomeAppender outcomeAppender;
+    // protected JSFOutcomeAppender outcomeAppender;
 
     
     public JSFPageBean() {
         msgBuffer = new LinkedList();
-        this.doInitJsfPageBean();
+        this.doSetupUrlProvider();//this.doInitJsfPageBean();
+        // this.doSetupOutcomeAppender();
     }
 
+    
     protected void doInitJsfPageBean() {
-//        request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-//        response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
-//        session = request.getSession();
-        this.doSetupUrlProvider();
+        // this.doSetupUrlProvider();  // 搬出       
     }
 
-    protected void doSetupUrlProvider() {
+    private void doSetupUrlProvider() {
         HttpServletRequest request = this.getRequest();
         urlProvider = AppUrlProvider.create(request);
     }
+    
+    /* 
+    private void doSetupOutcomeAppender() {
+        outcomeAppender = JSFOutcomeAppender.create();
+    } */
 
     protected void showErrorMessage(String message) {
         FacesMessage.Severity serverity = FacesMessage.SEVERITY_ERROR;
@@ -90,22 +94,23 @@ public class JSFPageBean {
         this.message = message;
         JSFMessageHelper.addFacesMessage(serverity, message);
     }
-
+    
     public void setNextPage(String nextPage) {
         this.nextPage = nextPage;
     }
 
     public String getSystemRootPath() {
         return systemRootPath;
-    }
-
+    }            
+    
     public String redirectToNextPage() {
         return this.redirectToNextPage(false);
-    }
+    }       
     
     /**
      * 進行實際轉頁到 nextPage 指向的頁面
-     * @param autoAppendQueryParam 是否(透過 JSF 的 includeViewParams) 在轉頁時上帶上 Query Param
+     * @param autoAppendQueryParam 是否(透過 JSF 的 includeViewParams) 在轉頁時上帶上 Query Param 
+     * @return 取的 redirec to 的 outcome
      */
     public String redirectToNextPage(Boolean autoAppendQueryParam) {
         if(printLog) {
@@ -121,12 +126,14 @@ public class JSFPageBean {
     }
 
     /**
-     * 不會實際轉頁，還是同一個 request。
+     * 不會實際發生轉頁(redirect)，還是同一個 request。
+     * 
+     * @return 取得 request to 的 outcome
      */
     public String requestToNextPage() {
         //System.out.println("nextPage = " + nextPage);
         return this.nextPage;
-    }
+    }    
 
     protected HttpServletRequest getRequest() {
 //        return (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();

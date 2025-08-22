@@ -28,14 +28,14 @@ public class JSFOutcomeAppender {
 
     private final UrlAppender appender;
 
-    public JSFOutcomeAppender() {
-        this.appender = UrlAppender.create();
+    public JSFOutcomeAppender(String nextPage) {
+        this.appender = UrlAppender.create(nextPage);
     }
     
-    public static JSFOutcomeAppender create() {
-        return new JSFOutcomeAppender();
+    public static JSFOutcomeAppender create(String nextPage) {
+        return new JSFOutcomeAppender(nextPage);
     }
-
+        
     public JSFOutcomeAppender isRedirect(Boolean needRedirect) {
         appender.appendQueryParam(JSF_QUERY_PARAM_REDIRECT, needRedirect); // 嚴格來說 false 不用帶
         return this;
