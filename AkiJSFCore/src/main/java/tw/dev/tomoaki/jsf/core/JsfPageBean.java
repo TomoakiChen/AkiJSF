@@ -51,13 +51,16 @@ public class JSFPageBean {
     
     public JSFPageBean() {
         msgBuffer = new LinkedList();
-        this.doSetupUrlProvider();//this.doInitJsfPageBean();
+        this.doInit();
+        this.doSetupUrlProvider();
         // this.doSetupOutcomeAppender();
     }
 
+    private void doInit() {
+        this.doInitJsfPageBean();
+    }
     
-    protected void doInitJsfPageBean() {
-        // this.doSetupUrlProvider();  // 搬出       
+    protected void doInitJsfPageBean() {        
     }
 
     private void doSetupUrlProvider() {
